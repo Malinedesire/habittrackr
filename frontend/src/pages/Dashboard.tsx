@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const Dashboard = () => {
   return (
     <main style={{ padding: "2rem" }}>
@@ -16,11 +18,23 @@ const Dashboard = () => {
           marginBottom: "2rem",
         }}
       >
-        <div style={{ border: "1px dashed #ccc", padding: "1rem" }}>Stats card</div>
-        <div style={{ border: "1px dashed #ccc", padding: "1rem" }}>Stats card</div>
-        <div style={{ border: "1px dashed #ccc", padding: "1rem" }}>Stats card</div>
-        <div style={{ border: "1px dashed #ccc", padding: "1rem" }}>Stats card</div>
+        <div style={{ border: "1px dashed #ccc", padding: "1rem" }}>
+          Stats card
+        </div>
+        <div style={{ border: "1px dashed #ccc", padding: "1rem" }}>
+          Stats card
+        </div>
+        <div style={{ border: "1px dashed #ccc", padding: "1rem" }}>
+          Stats card
+        </div>
+        <div style={{ border: "1px dashed #ccc", padding: "1rem" }}>
+          Stats card
+        </div>
       </section>
+
+      <Link to="/habits/new">
+        <button>+ New habit</button>
+      </Link>
 
       {/* Main content */}
       <section

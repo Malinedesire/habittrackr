@@ -1,4 +1,4 @@
-export type FrequencyType = 'daily' | 'weekly' | 'custom';
+export type FrequencyType = 'daily' | 'weekdays' | 'weekends' | 'flexible';
 
 export interface Habit {
   id: string;
@@ -6,7 +6,7 @@ export interface Habit {
   title: string;
   description?: string;
   frequencyType: FrequencyType;
-  targetPerPeriod: number;
+  targetPerPeriod?: number;
   startDate: Date;
   endDate?: Date;
   isActive: boolean;
