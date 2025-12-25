@@ -13,7 +13,14 @@ function App() {
         <Route path="/" element={<Landing />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/habits/new" element={<CreateHabit />} />
+        <Route
+          path="/habits/new"
+          element={
+            <ProtectedRoute>
+              <CreateHabit />
+            </ProtectedRoute>
+          }
+        />
         <Route
           path="/dashboard"
           element={
