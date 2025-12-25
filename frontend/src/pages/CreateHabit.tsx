@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import { auth, db } from "../firebase";
 
 type FrequencyType = "daily" | "weekdays" | "weekends" | "flexible";
 
@@ -11,20 +13,29 @@ const CreateHabit = () => {
   const [targetPerPeriod, setTargetPerPeriod] = useState<number>(3);
   const [note, setNote] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const habitData = {
-      name,
-      frequency,
-      targetPerPeriod: frequency === "flexible" ? targetPerPeriod : undefined,
-      note,
-    };
+    const user = auth.currentUser;
+    if (!user) {
+      console.error("No authenticated user");
+      return;
+    }
 
-    console.log("New habit:", habitData);
+    try {
+      await addDoc(collection(db, "users", user.uid, "habits"), {
+        title: name,
+        description: note,
+        frequencyType: frequency,
+        targetPerPeriod: frequency === "flexible" ? targetPerPeriod : null,
+        isActive: true,
+        createdAt: serverTimestamp(),
+      });
 
-    // senare: POST till backend
-    navigate("/dashboard");
+      navigate("/dashboard");
+    } catch (error) {
+      console.error("Failed to create habit", error);
+    }
   };
 
   return (
