@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { login } from "../api/auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../firebase";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -8,21 +9,20 @@ const Login = () => {
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = async () => {
     setError(null);
 
     try {
-      const data = await login(email, password);
-      localStorage.setItem("token", data.token);
+      await signInWithEmailAndPassword(auth, email, password);
       navigate("/dashboard");
     } catch (err: any) {
+      console.error(err);
       setError(err.message);
     }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={(e) => e.preventDefault()}>
       <h1>Log in</h1>
 
       <input
@@ -43,7 +43,9 @@ const Login = () => {
 
       {error && <p style={{ color: "red" }}>{error}</p>}
 
-      <button type="submit">Log in</button>
+      <button type="button" onClick={handleSubmit}>
+        Log in
+      </button>
     </form>
   );
 };
