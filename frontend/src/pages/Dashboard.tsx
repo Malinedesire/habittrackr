@@ -1,12 +1,26 @@
 import { Link } from "react-router-dom";
+import { signOut } from "firebase/auth";
+import { auth } from "../firebase";
+import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    await signOut(auth);
+    navigate("/login");
+  };
+
   return (
     <main style={{ padding: "2rem" }}>
-      {/* Page header */}
       <header style={{ marginBottom: "2rem" }}>
         <h1>Welcome back!</h1>
         <p>Here’s an overview of your habits and progress.</p>
+
+        {/* Logout */}
+        <button onClick={handleLogout} style={{ marginTop: "1rem" }}>
+          Log out
+        </button>
       </header>
 
       {/* Stats overview */}

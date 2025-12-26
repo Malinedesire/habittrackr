@@ -1,14 +1,15 @@
 import { Navigate } from "react-router-dom";
 import type { ReactNode } from "react";
+import { auth } from "../firebase";
 
 type Props = {
   children: ReactNode;
 };
 
 const ProtectedRoute = ({ children }: Props) => {
-  const token = localStorage.getItem("token");
+  const user = auth.currentUser;
 
-  if (!token) {
+  if (!user) {
     return <Navigate to="/login" replace />;
   }
 

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { register } from "../api/auth";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../firebase";
 
 const Register = () => {
   const [email, setEmail] = useState("");
@@ -13,8 +14,7 @@ const Register = () => {
     setError(null);
 
     try {
-      const data = await register(email, password);
-      localStorage.setItem("token", data.token);
+      await createUserWithEmailAndPassword(auth, email, password);
       navigate("/dashboard");
     } catch (err: any) {
       setError(err.message);
