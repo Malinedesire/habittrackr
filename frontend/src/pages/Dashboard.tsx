@@ -55,10 +55,13 @@ const Dashboard = () => {
         <h1>Welcome back!</h1>
         <p>Here’s an overview of your habits and progress.</p>
 
-        {/* Logout */}
-        <button onClick={handleLogout} style={{ marginTop: "1rem" }}>
-          Log out
-        </button>
+        <div style={{ display: "flex", gap: "1rem", marginTop: "1rem" }}>
+          <Link to="/profile">
+            <button>Profile settings</button>
+          </Link>
+
+          <button onClick={handleLogout}>Log out</button>
+        </div>
       </header>
 
       {/* Stats overview */}
