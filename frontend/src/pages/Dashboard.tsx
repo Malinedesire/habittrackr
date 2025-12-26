@@ -5,11 +5,14 @@ import { useEffect, useState } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { auth, db } from "../firebase";
 import type { Habit } from "../types/habit";
+import Loading from "../components/ui/Loading";
+import ErrorMessage from "../components/ui/ErrorMessage";
 
 const Dashboard = () => {
   const navigate = useNavigate();
   const [habits, setHabits] = useState<Habit[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   const handleLogout = async () => {
     await signOut(auth);
@@ -18,6 +21,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     const fetchHabits = async () => {
+      setError(null);
       const user = auth.currentUser;
       if (!user) {
         setLoading(false);
@@ -36,6 +40,7 @@ const Dashboard = () => {
         setHabits(habitsData);
       } catch (error) {
         console.error("Error fetching habits:", error);
+        setError("Failed to load habits.");
       } finally {
         setLoading(false);
       }
@@ -95,7 +100,9 @@ const Dashboard = () => {
         <div style={{ border: "1px dashed #ccc", padding: "1.5rem" }}>
           <h2>Active habits</h2>
 
-          {loading && <p>Loading habits...</p>}
+          {loading && <Loading message="Loading habits..." />}
+
+          {error && <ErrorMessage message={error} />}
 
           {!loading && habits.length === 0 && (
             <p>You haven’t created any habits yet.</p>

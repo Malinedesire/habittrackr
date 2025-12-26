@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase";
+import { getAuthErrorMessage } from "../utils/firebaseErrors";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -17,7 +18,7 @@ const Login = () => {
       navigate("/dashboard");
     } catch (err: any) {
       console.error(err);
-      setError(err.message);
+      setError(getAuthErrorMessage(err.code));
     }
   };
 
