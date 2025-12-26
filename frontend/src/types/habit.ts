@@ -8,4 +8,5 @@ export type Habit = {
   targetPerPeriod?: number;
   isActive: boolean;
   createdAt: Timestamp; 
+  completedDates?: string[];
 };
