@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase";
+import { getAuthErrorMessage } from "../utils/firebaseErrors";
 
 const Register = () => {
   const [email, setEmail] = useState("");
@@ -17,7 +18,9 @@ const Register = () => {
       await createUserWithEmailAndPassword(auth, email, password);
       navigate("/dashboard");
     } catch (err: any) {
-      setError(err.message);
+      console.log(err);
+      console.log(err.code);
+      setError(getAuthErrorMessage(err.code));
     }
   };
 
