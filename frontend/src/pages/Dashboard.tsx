@@ -2,11 +2,19 @@ import { Link } from "react-router-dom";
 import { signOut } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { collection, getDocs } from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  doc,
+  updateDoc,
+  arrayUnion,
+} from "firebase/firestore";
 import { auth, db } from "../firebase";
 import type { Habit } from "../types/habit";
 import Loading from "../components/ui/Loading";
 import ErrorMessage from "../components/ui/ErrorMessage";
+
+const today = new Date().toISOString().split("T")[0];
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -48,6 +56,32 @@ const Dashboard = () => {
 
     fetchHabits();
   }, []);
+
+  const markHabitDone = async (habitId: string) => {
+    const user = auth.currentUser;
+    if (!user) return;
+
+    try {
+      const habitRef = doc(db, "users", user.uid, "habits", habitId);
+
+      await updateDoc(habitRef, {
+        completedDates: arrayUnion(today),
+      });
+
+      setHabits((prev) =>
+        prev.map((h) =>
+          h.id === habitId
+            ? {
+                ...h,
+                completedDates: [...(h.completedDates ?? []), today],
+              }
+            : h
+        )
+      );
+    } catch (error) {
+      console.error("Failed to mark habit as done", error);
+    }
+  };
 
   return (
     <main style={{ padding: "2rem" }}>
@@ -113,9 +147,23 @@ const Dashboard = () => {
 
           {!loading && habits.length > 0 && (
             <ul>
-              {habits.map((habit) => (
-                <li key={habit.id}>{habit.title}</li>
-              ))}
+              {habits.map((habit) => {
+                const doneToday = habit.completedDates?.includes(today);
+
+                return (
+                  <li key={habit.id}>
+                    {habit.title}
+
+                    <button
+                      onClick={() => markHabitDone(habit.id)}
+                      disabled={doneToday}
+                      style={{ marginLeft: "1rem" }}
+                    >
+                      {doneToday ? "Done ✓" : "Mark done"}
+                    </button>
+                  </li>
+                );
+              })}
             </ul>
           )}
         </div>
