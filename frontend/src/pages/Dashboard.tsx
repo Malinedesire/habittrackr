@@ -1,15 +1,48 @@
 import { Link } from "react-router-dom";
 import { signOut } from "firebase/auth";
-import { auth } from "../firebase";
 import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { collection, getDocs } from "firebase/firestore";
+import { auth, db } from "../firebase";
+import type { Habit } from "../types/habit";
 
 const Dashboard = () => {
   const navigate = useNavigate();
+  const [habits, setHabits] = useState<Habit[]>([]);
+  const [loading, setLoading] = useState(true);
 
   const handleLogout = async () => {
     await signOut(auth);
     navigate("/login");
   };
+
+  useEffect(() => {
+    const fetchHabits = async () => {
+      const user = auth.currentUser;
+      if (!user) {
+        setLoading(false);
+        return;
+      }
+
+      try {
+        const habitsRef = collection(db, "users", user.uid, "habits");
+        const snapshot = await getDocs(habitsRef);
+
+        const habitsData: Habit[] = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...(doc.data() as Omit<Habit, "id">),
+        }));
+
+        setHabits(habitsData);
+      } catch (error) {
+        console.error("Error fetching habits:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchHabits();
+  }, []);
 
   return (
     <main style={{ padding: "2rem" }}>
@@ -61,7 +94,20 @@ const Dashboard = () => {
         {/* Left column */}
         <div style={{ border: "1px dashed #ccc", padding: "1.5rem" }}>
           <h2>Active habits</h2>
-          <p>Habit list will be displayed here.</p>
+
+          {loading && <p>Loading habits...</p>}
+
+          {!loading && habits.length === 0 && (
+            <p>You haven’t created any habits yet.</p>
+          )}
+
+          {!loading && habits.length > 0 && (
+            <ul>
+              {habits.map((habit) => (
+                <li key={habit.id}>{habit.title}</li>
+              ))}
+            </ul>
+          )}
         </div>
 
         {/* Right column */}
