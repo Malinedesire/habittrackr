@@ -187,7 +187,11 @@ const Dashboard = () => {
                         justifyContent: "space-between",
                       }}
                     >
-                      <strong>{habit.title}</strong>
+                      <Link to={`/habits/${habit.id}`}>
+                        <strong style={{ cursor: "pointer" }}>
+                          {habit.title}
+                        </strong>
+                      </Link>
 
                       <button
                         onClick={() => markHabitDone(habit.id)}
