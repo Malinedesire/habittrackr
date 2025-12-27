@@ -7,6 +7,7 @@ import ProtectedRoute from "./routes/ProtectedRoute";
 import CreateHabit from "./pages/CreateHabit";
 import Profile from "./pages/Profile";
 import HabitDetails from "./pages/HabitDetails";
+import EditHabit from "./pages/EditHabit";
 
 function App() {
   return (
@@ -31,7 +32,14 @@ function App() {
             </ProtectedRoute>
           }
         />
-
+        <Route
+          path="/habits/:id/edit"
+          element={
+            <ProtectedRoute>
+              <EditHabit />
+            </ProtectedRoute>
+          }
+        />
         <Route
           path="/dashboard"
           element={

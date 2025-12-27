@@ -78,7 +78,11 @@ const HabitDetails = () => {
       <Link to="/dashboard">← Back to dashboard</Link>
 
       {/* Header */}
-      <HabitHeader habit={habit} onDelete={handleDeleteHabit} />
+      <HabitHeader
+        habit={habit}
+        onEdit={() => navigate(`/habits/${habit.id}/edit`)}
+        onDelete={handleDeleteHabit}
+      />
 
       {/* History */}
       <CompletionHistory completedDates={habit.completedDates} />
