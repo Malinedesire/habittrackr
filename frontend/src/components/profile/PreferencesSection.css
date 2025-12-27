@@ -1,0 +1,13 @@
+.preferencesSection {
+  margin-bottom: 2rem;
+}
+
+.preferenceItem {
+  display: block;
+  opacity: 0.6;
+}
+
+.comingSoon {
+  font-size: 0.8rem;
+  margin-left: 0.5rem;
+}

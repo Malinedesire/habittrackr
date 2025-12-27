@@ -1,5 +1,6 @@
 import { auth } from "../../firebase";
 import { useNavigate } from "react-router-dom";
+import "./ProfileHeader.css";
 
 type Props = {
   habitCount: number;
@@ -18,48 +19,22 @@ const ProfileHeader = ({ habitCount, bestStreak }: Props) => {
     : "—";
 
   return (
-    <section style={{ marginBottom: "2rem" }}>
+    <section className="profileSection">
       <h2>Profile</h2>
 
-      <div
-        style={{
-          background: "#1f1f1f",
-          borderRadius: "12px",
-          padding: "1.5rem",
-        }}
-      >
+      <div className="profileCard">
         {/* Top row */}
-        <div style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
-          <div
-            style={{
-              width: 48,
-              height: 48,
-              borderRadius: "50%",
-              background: "#333",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            👤
-          </div>
+        <div className="profileTopRow">
+          <div className="avatar">👤</div>
 
           <div>
             <strong>Hey there! 👋</strong>
-            <div style={{ fontSize: "0.85rem", opacity: 0.7 }}>
-              Member since {memberSince}
-            </div>
+            <div className="subText">Member since {memberSince}</div>
           </div>
         </div>
 
         {/* Stats */}
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            marginTop: "1.5rem",
-          }}
-        >
+        <div className="profileStats">
           <Stat label="habits" value={habitCount} />
           <Stat label="challenges" value={0} />
           <Stat label="best streak" value={`${bestStreak} days`} />
@@ -67,7 +42,7 @@ const ProfileHeader = ({ habitCount, bestStreak }: Props) => {
 
         {/* Edit profile */}
         <button
-          style={{ marginTop: "1.5rem", width: "100%" }}
+          className="editButton"
           onClick={() => navigate("/reset-password")}
         >
           Edit profile →
@@ -78,9 +53,9 @@ const ProfileHeader = ({ habitCount, bestStreak }: Props) => {
 };
 
 const Stat = ({ label, value }: { label: string; value: string | number }) => (
-  <div style={{ textAlign: "center" }}>
+  <div className="stat">
     <strong>{value}</strong>
-    <div style={{ fontSize: "0.75rem", opacity: 0.6 }}>{label}</div>
+    <div className="statLabel">{label}</div>
   </div>
 );
 
