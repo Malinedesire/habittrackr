@@ -6,6 +6,7 @@ import Dashboard from "./pages/Dashboard";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import CreateHabit from "./pages/CreateHabit";
 import Profile from "./pages/Profile";
+import HabitDetails from "./pages/HabitDetails";
 
 function App() {
   return (
@@ -22,6 +23,15 @@ function App() {
             </ProtectedRoute>
           }
         />
+        <Route
+          path="/habits/:id"
+          element={
+            <ProtectedRoute>
+              <HabitDetails />
+            </ProtectedRoute>
+          }
+        />
+
         <Route
           path="/dashboard"
           element={
