@@ -7,13 +7,15 @@ import { useEffect, useState } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { auth, db } from "../firebase";
 import Loading from "../components/ui/Loading";
+import { getBestStreak } from "../utils/streak";
+import type { Habit } from "../types/habit";
 
 const Profile = () => {
-  const [habitCount, setHabitCount] = useState(0);
+  const [habits, setHabits] = useState<Habit[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchHabitCount = async () => {
+    const fetchHabits = async () => {
       const user = auth.currentUser;
       if (!user) {
         setLoading(false);
@@ -23,16 +25,28 @@ const Profile = () => {
       try {
         const habitsRef = collection(db, "users", user.uid, "habits");
         const snapshot = await getDocs(habitsRef);
-        setHabitCount(snapshot.size);
+
+        const habitsData: Habit[] = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...(doc.data() as Omit<Habit, "id">),
+        }));
+
+        setHabits(habitsData);
       } catch (error) {
-        console.error("Failed to fetch habit count", error);
+        console.error("Failed to fetch habits", error);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchHabitCount();
+    fetchHabits();
   }, []);
+
+  const habitCount = habits.length;
+
+  const bestStreak = habits.reduce((max, habit) => {
+    return Math.max(max, getBestStreak(habit.completedDates ?? []));
+  }, 0);
 
   if (loading) {
     return (
@@ -44,7 +58,7 @@ const Profile = () => {
 
   return (
     <main style={{ padding: "2rem", maxWidth: "600px", margin: "0 auto" }}>
-      <ProfileHeader habitCount={habitCount} />
+      <ProfileHeader habitCount={habitCount} bestStreak={bestStreak} />
       <PreferencesSection />
       <DataPrivacySection />
       <SupportSection />

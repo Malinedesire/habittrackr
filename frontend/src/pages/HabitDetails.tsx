@@ -9,6 +9,7 @@ import ErrorMessage from "../components/ui/ErrorMessage";
 import HabitHeader from "../components/habit-details/HabitHeader";
 import CompletionHistory from "../components/habit-details/CompletionHistory";
 import PlaceholderSection from "../components/habit-details/PlaceholderSection";
+import HabitStreakInfo from "../components/habit-details/HabitStreakInfo";
 
 const HabitDetails = () => {
   const { id } = useParams();
@@ -83,6 +84,8 @@ const HabitDetails = () => {
         onEdit={() => navigate(`/habits/${habit.id}/edit`)}
         onDelete={handleDeleteHabit}
       />
+
+      <HabitStreakInfo completedDates={habit.completedDates} />
 
       {/* History */}
       <CompletionHistory completedDates={habit.completedDates} />
