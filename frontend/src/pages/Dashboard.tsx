@@ -16,6 +16,17 @@ import ErrorMessage from "../components/ui/ErrorMessage";
 
 const today = new Date().toISOString().split("T")[0];
 
+const getCompletedThisWeek = (dates: string[] = []) => {
+  const today = new Date();
+  const last7Days = new Date();
+  last7Days.setDate(today.getDate() - 6);
+
+  return dates.filter((date) => {
+    const d = new Date(date);
+    return d >= last7Days && d <= today;
+  }).length;
+};
+
 const Dashboard = () => {
   const navigate = useNavigate();
   const [habits, setHabits] = useState<Habit[]>([]);
@@ -150,17 +161,77 @@ const Dashboard = () => {
               {habits.map((habit) => {
                 const doneToday = habit.completedDates?.includes(today);
 
-                return (
-                  <li key={habit.id}>
-                    {habit.title}
+                const completedThisWeek = getCompletedThisWeek(
+                  habit.completedDates ?? []
+                );
 
-                    <button
-                      onClick={() => markHabitDone(habit.id)}
-                      disabled={doneToday}
-                      style={{ marginLeft: "1rem" }}
+                const progressPercent = Math.round(
+                  (completedThisWeek / 7) * 100
+                );
+
+                return (
+                  <li
+                    key={habit.id}
+                    style={{
+                      marginBottom: "1.5rem",
+                      padding: "1rem",
+                      border: "1px solid #333",
+                      borderRadius: "8px",
+                    }}
+                  >
+                    {/* Title row with check icon */}
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                      }}
                     >
-                      {doneToday ? "Done ✓" : "Mark done"}
-                    </button>
+                      <strong>{habit.title}</strong>
+
+                      <button
+                        onClick={() => markHabitDone(habit.id)}
+                        disabled={doneToday}
+                        aria-label="Mark habit as done"
+                        style={{
+                          width: "28px",
+                          height: "28px",
+                          borderRadius: "50%",
+                          border: "1px solid #4caf50",
+                          background: doneToday ? "#4caf50" : "transparent",
+                          color: doneToday ? "#000" : "#4caf50",
+                          cursor: doneToday ? "default" : "pointer",
+                          fontWeight: "bold",
+                          lineHeight: 1,
+                        }}
+                      >
+                        {doneToday ? "✓" : ""}
+                      </button>
+                    </div>
+
+                    {/* Progress text */}
+                    <div style={{ fontSize: "0.85rem", opacity: 0.7 }}>
+                      {completedThisWeek} / 7 days this week
+                    </div>
+
+                    {/* Progress bar */}
+                    <div
+                      style={{
+                        height: "6px",
+                        background: "#333",
+                        borderRadius: "4px",
+                        marginTop: "0.25rem",
+                      }}
+                    >
+                      <div
+                        style={{
+                          width: `${progressPercent}%`,
+                          height: "100%",
+                          background: "#4caf50",
+                          borderRadius: "4px",
+                        }}
+                      />
+                    </div>
                   </li>
                 );
               })}
