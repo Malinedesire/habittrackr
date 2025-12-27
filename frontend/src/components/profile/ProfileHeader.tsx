@@ -3,9 +3,10 @@ import { useNavigate } from "react-router-dom";
 
 type Props = {
   habitCount: number;
+  bestStreak: number;
 };
 
-const ProfileHeader = ({ habitCount }: Props) => {
+const ProfileHeader = ({ habitCount, bestStreak }: Props) => {
   const user = auth.currentUser;
   const navigate = useNavigate();
 
@@ -61,7 +62,7 @@ const ProfileHeader = ({ habitCount }: Props) => {
         >
           <Stat label="habits" value={habitCount} />
           <Stat label="challenges" value={0} />
-          <Stat label="best streak" value={0} />
+          <Stat label="best streak" value={`${bestStreak} days`} />
         </div>
 
         {/* Edit profile */}
@@ -76,7 +77,7 @@ const ProfileHeader = ({ habitCount }: Props) => {
   );
 };
 
-const Stat = ({ label, value }: { label: string; value: number }) => (
+const Stat = ({ label, value }: { label: string; value: string | number }) => (
   <div style={{ textAlign: "center" }}>
     <strong>{value}</strong>
     <div style={{ fontSize: "0.75rem", opacity: 0.6 }}>{label}</div>
