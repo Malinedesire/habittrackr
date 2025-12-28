@@ -3,9 +3,9 @@ import cors from "cors";
 import dotenv from "dotenv";
 import authRoutes from "./routes/auth.routes"
 import protectedRoutes from "./routes/protected.routes"
+import challengeRouter from "./routes/challenge";
 
 dotenv.config();
-
 
 if (!process.env.JWT_SECRET) {
   throw new Error("JWT_SECRET is not defined");
@@ -20,6 +20,8 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/auth", authRoutes);
+
+app.use("/api", challengeRouter);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
