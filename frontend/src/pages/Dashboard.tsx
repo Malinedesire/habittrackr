@@ -14,6 +14,7 @@ import type { Habit } from "../types/habit";
 import Loading from "../components/ui/Loading";
 import ErrorMessage from "../components/ui/ErrorMessage";
 import "./Dashboard.css";
+import DailyChallenge from "../components/challenges/DailyChallenge";
 
 const today = new Date().toISOString().split("T")[0];
 
@@ -172,6 +173,7 @@ const Dashboard = () => {
         <aside className="overviewCard">
           <h2>Overview</h2>
           <p>Weekly overview, stats and motivation widgets.</p>
+          <DailyChallenge />
         </aside>
       </section>
     </main>

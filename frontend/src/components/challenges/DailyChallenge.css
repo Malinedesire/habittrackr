@@ -1,0 +1,18 @@
+.dailyChallenge {
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 1rem;
+  background-color: #fff;
+}
+
+.dailyChallenge__text {
+  font-size: 0.85rem;
+  line-height: 1.4;
+  margin-bottom: 0.75rem;
+  color:#6b7280;
+}
+
+.dailyChallenge__meta {
+  font-size: 0.7rem;
+  color: #6b7280;
+}
