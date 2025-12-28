@@ -13,6 +13,7 @@ import { auth, db } from "../firebase";
 import type { Habit } from "../types/habit";
 import Loading from "../components/ui/Loading";
 import ErrorMessage from "../components/ui/ErrorMessage";
+import "./Dashboard.css";
 
 const today = new Date().toISOString().split("T")[0];
 
@@ -57,8 +58,7 @@ const Dashboard = () => {
         }));
 
         setHabits(habitsData);
-      } catch (error) {
-        console.error("Error fetching habits:", error);
+      } catch {
         setError("Failed to load habits.");
       } finally {
         setLoading(false);
@@ -72,84 +72,52 @@ const Dashboard = () => {
     const user = auth.currentUser;
     if (!user) return;
 
-    try {
-      const habitRef = doc(db, "users", user.uid, "habits", habitId);
+    await updateDoc(doc(db, "users", user.uid, "habits", habitId), {
+      completedDates: arrayUnion(today),
+    });
 
-      await updateDoc(habitRef, {
-        completedDates: arrayUnion(today),
-      });
-
-      setHabits((prev) =>
-        prev.map((h) =>
-          h.id === habitId
-            ? {
-                ...h,
-                completedDates: [...(h.completedDates ?? []), today],
-              }
-            : h
-        )
-      );
-    } catch (error) {
-      console.error("Failed to mark habit as done", error);
-    }
+    setHabits((prev) =>
+      prev.map((h) =>
+        h.id === habitId
+          ? {
+              ...h,
+              completedDates: [...(h.completedDates ?? []), today],
+            }
+          : h
+      )
+    );
   };
 
   return (
-    <main style={{ padding: "2rem" }}>
-      <header style={{ marginBottom: "2rem" }}>
+    <main className="dashboard">
+      <header className="dashboardHeader">
         <h1>Welcome back!</h1>
         <p>Here’s an overview of your habits and progress.</p>
 
-        <div style={{ display: "flex", gap: "1rem", marginTop: "1rem" }}>
+        <div className="headerActions">
           <Link to="/profile">
             <button>Profile settings</button>
           </Link>
-
           <button onClick={handleLogout}>Log out</button>
         </div>
       </header>
 
-      {/* Stats overview */}
-      <section
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(4, 1fr)",
-          gap: "1rem",
-          marginBottom: "2rem",
-        }}
-      >
-        <div style={{ border: "1px dashed #ccc", padding: "1rem" }}>
-          Stats card
-        </div>
-        <div style={{ border: "1px dashed #ccc", padding: "1rem" }}>
-          Stats card
-        </div>
-        <div style={{ border: "1px dashed #ccc", padding: "1rem" }}>
-          Stats card
-        </div>
-        <div style={{ border: "1px dashed #ccc", padding: "1rem" }}>
-          Stats card
-        </div>
+      <section className="statsGrid">
+        <div className="statsCard">Stats card</div>
+        <div className="statsCard">Stats card</div>
+        <div className="statsCard">Stats card</div>
+        <div className="statsCard">Stats card</div>
       </section>
 
       <Link to="/habits/new">
         <button>+ New habit</button>
       </Link>
 
-      {/* Main content */}
-      <section
-        style={{
-          display: "grid",
-          gridTemplateColumns: "2fr 1fr",
-          gap: "2rem",
-        }}
-      >
-        {/* Left column */}
-        <div style={{ border: "1px dashed #ccc", padding: "1.5rem" }}>
+      <section className="mainGrid">
+        <div className="habitsCard">
           <h2>Active habits</h2>
 
           {loading && <Loading message="Loading habits..." />}
-
           {error && <ErrorMessage message={error} />}
 
           {!loading && habits.length === 0 && (
@@ -160,80 +128,38 @@ const Dashboard = () => {
             <ul>
               {habits.map((habit) => {
                 const doneToday = habit.completedDates?.includes(today);
-
                 const completedThisWeek = getCompletedThisWeek(
                   habit.completedDates ?? []
                 );
-
                 const progressPercent = Math.round(
                   (completedThisWeek / 7) * 100
                 );
 
                 return (
-                  <li
-                    key={habit.id}
-                    style={{
-                      marginBottom: "1.5rem",
-                      padding: "1rem",
-                      border: "1px solid #333",
-                      borderRadius: "8px",
-                    }}
-                  >
-                    {/* Title row with check icon */}
-                    <div
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "space-between",
-                      }}
-                    >
+                  <li key={habit.id} className="habitItem">
+                    <div className="habitHeader">
                       <Link to={`/habits/${habit.id}`}>
-                        <strong style={{ cursor: "pointer" }}>
-                          {habit.title}
-                        </strong>
+                        <strong className="habitTitle">{habit.title}</strong>
                       </Link>
 
                       <button
                         onClick={() => markHabitDone(habit.id)}
                         disabled={doneToday}
                         aria-label="Mark habit as done"
-                        style={{
-                          width: "28px",
-                          height: "28px",
-                          borderRadius: "50%",
-                          border: "1px solid #4caf50",
-                          background: doneToday ? "#4caf50" : "transparent",
-                          color: doneToday ? "#000" : "#4caf50",
-                          cursor: doneToday ? "default" : "pointer",
-                          fontWeight: "bold",
-                          lineHeight: 1,
-                        }}
+                        className={`checkButton ${doneToday ? "done" : ""}`}
                       >
                         {doneToday ? "✓" : ""}
                       </button>
                     </div>
 
-                    {/* Progress text */}
-                    <div style={{ fontSize: "0.85rem", opacity: 0.7 }}>
+                    <div className="progressText">
                       {completedThisWeek} / 7 days this week
                     </div>
 
-                    {/* Progress bar */}
-                    <div
-                      style={{
-                        height: "6px",
-                        background: "#333",
-                        borderRadius: "4px",
-                        marginTop: "0.25rem",
-                      }}
-                    >
+                    <div className="progressBar">
                       <div
-                        style={{
-                          width: `${progressPercent}%`,
-                          height: "100%",
-                          background: "#4caf50",
-                          borderRadius: "4px",
-                        }}
+                        className="progressFill"
+                        style={{ width: `${progressPercent}%` }}
                       />
                     </div>
                   </li>
@@ -243,8 +169,7 @@ const Dashboard = () => {
           )}
         </div>
 
-        {/* Right column */}
-        <aside style={{ border: "1px dashed #ccc", padding: "1.5rem" }}>
+        <aside className="overviewCard">
           <h2>Overview</h2>
           <p>Weekly overview, stats and motivation widgets.</p>
         </aside>

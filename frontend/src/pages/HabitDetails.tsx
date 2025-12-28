@@ -11,6 +11,8 @@ import CompletionHistory from "../components/habit-details/CompletionHistory";
 import PlaceholderSection from "../components/habit-details/PlaceholderSection";
 import HabitStreakInfo from "../components/habit-details/HabitStreakInfo";
 
+import "./HabitDetails.css";
+
 const HabitDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -39,7 +41,7 @@ const HabitDetails = () => {
             ...(snapshot.data() as Omit<Habit, "id">),
           });
         }
-      } catch (err) {
+      } catch {
         setError("Failed to load habit");
       } finally {
         setLoading(false);
@@ -62,7 +64,6 @@ const HabitDetails = () => {
     try {
       const habitRef = doc(db, "users", user.uid, "habits", id);
       await deleteDoc(habitRef);
-
       navigate("/dashboard");
     } catch (error) {
       console.error("Failed to delete habit", error);
@@ -75,10 +76,11 @@ const HabitDetails = () => {
   if (!habit) return null;
 
   return (
-    <main style={{ padding: "2rem", maxWidth: "700px", margin: "0 auto" }}>
-      <Link to="/dashboard">← Back to dashboard</Link>
+    <main className="habit-details">
+      <Link to="/dashboard" className="habit-details__back">
+        ← Back to dashboard
+      </Link>
 
-      {/* Header */}
       <HabitHeader
         habit={habit}
         onEdit={() => navigate(`/habits/${habit.id}/edit`)}
@@ -87,10 +89,8 @@ const HabitDetails = () => {
 
       <HabitStreakInfo completedDates={habit.completedDates} />
 
-      {/* History */}
       <CompletionHistory completedDates={habit.completedDates} />
 
-      {/* Future features */}
       <PlaceholderSection
         title="Monthly progress"
         description="Monthly progress visualization will be available in a future update."

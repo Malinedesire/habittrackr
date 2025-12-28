@@ -1,0 +1,59 @@
+/* =========================
+   Landing layout (prototype)
+   ========================= */
+
+.landing {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* ─────────────────────────
+   Header
+   ───────────────────────── */
+
+.landingHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 1.5rem 2rem;
+}
+
+.nav {
+  display: flex;
+  gap: 1rem;
+}
+
+/* ─────────────────────────
+   Hero section
+   ───────────────────────── */
+
+.hero {
+  flex: 1;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 2rem;
+  text-align: center;
+}
+
+.heroContent {
+  max-width: 600px;
+}
+
+.heroText {
+  margin-top: 1rem;
+}
+
+/* Actions */
+
+.heroActions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+
+  margin-top: 2rem;
+}

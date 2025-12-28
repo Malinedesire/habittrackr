@@ -4,6 +4,8 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase";
 import { getAuthErrorMessage } from "../utils/firebaseErrors";
 
+import "./Register.css";
+
 const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -18,36 +20,43 @@ const Register = () => {
       await createUserWithEmailAndPassword(auth, email, password);
       navigate("/dashboard");
     } catch (err: any) {
-      console.log(err);
-      console.log(err.code);
+      console.error(err);
       setError(getAuthErrorMessage(err.code));
     }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h1>Create account</h1>
+    <main className="register">
+      <form className="registerForm" onSubmit={handleSubmit}>
+        <h1 className="registerTitle">Create account</h1>
 
-      <input
-        type="email"
-        placeholder="Email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        required
-      />
+        <div className="formField">
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+        </div>
 
-      <input
-        type="password"
-        placeholder="Password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        required
-      />
+        <div className="formField">
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+        </div>
 
-      {error && <p style={{ color: "red" }}>{error}</p>}
+        {error && <p className="errorMessage">{error}</p>}
 
-      <button type="submit">Sign up</button>
-    </form>
+        <button type="submit" className="registerButton">
+          Sign up
+        </button>
+      </form>
+    </main>
   );
 };
 

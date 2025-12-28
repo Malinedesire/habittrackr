@@ -1,52 +1,30 @@
 import { Link } from "react-router-dom";
+import "./Landing.css";
 
 const Landing = () => {
   return (
-    <main>
+    <main className="landing">
       {/* Header / Navigation */}
-      <header
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          padding: "1.5rem 2rem",
-        }}
-      >
-        <strong>HabitTrackr</strong>
+      <header className="landingHeader">
+        <strong className="logo">HabitTrackr</strong>
 
-        <nav style={{ display: "flex", gap: "1rem" }}>
+        <nav className="nav">
           <Link to="/login">Login</Link>
           <Link to="/register">Sign up</Link>
         </nav>
       </header>
 
       {/* Hero section */}
-      <section
-        style={{
-          minHeight: "70vh",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          textAlign: "center",
-          padding: "2rem",
-        }}
-      >
-        <div style={{ maxWidth: "600px" }}>
+      <section className="hero">
+        <div className="heroContent">
           <h1>Stop planning. Start doing.</h1>
 
-          <p style={{ marginTop: "1rem" }}>
+          <p className="heroText">
             Build better habits, take on challenges, and track your progress —
             one day at a time.
           </p>
 
-          <div
-            style={{
-              display: "flex",
-              gap: "1rem",
-              justifyContent: "center",
-              marginTop: "2rem",
-            }}
-          >
+          <div className="heroActions">
             <Link to="/register">
               <button>Get started</button>
             </Link>

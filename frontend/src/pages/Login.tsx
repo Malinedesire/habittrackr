@@ -4,6 +4,8 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase";
 import { getAuthErrorMessage } from "../utils/firebaseErrors";
 
+import "./Login.css";
+
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -23,31 +25,37 @@ const Login = () => {
   };
 
   return (
-    <form onSubmit={(e) => e.preventDefault()}>
-      <h1>Log in</h1>
+    <main className="login">
+      <form className="loginForm" onSubmit={(e) => e.preventDefault()}>
+        <h1 className="loginTitle">Log in</h1>
 
-      <input
-        type="email"
-        placeholder="Email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        required
-      />
+        <div className="formField">
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+        </div>
 
-      <input
-        type="password"
-        placeholder="Password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        required
-      />
+        <div className="formField">
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+        </div>
 
-      {error && <p style={{ color: "red" }}>{error}</p>}
+        {error && <p className="errorMessage">{error}</p>}
 
-      <button type="button" onClick={handleSubmit}>
-        Log in
-      </button>
-    </form>
+        <button type="button" className="loginButton" onClick={handleSubmit}>
+          Log in
+        </button>
+      </form>
+    </main>
   );
 };
 

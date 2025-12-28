@@ -1,0 +1,51 @@
+/* =========================
+   Login layout (prototype)
+   ========================= */
+
+.login {
+  min-height: 100vh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 2rem;
+}
+
+/* Form */
+
+.loginForm {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+
+  width: 100%;
+  max-width: 400px;
+}
+
+.loginTitle {
+  margin: 0 0 0.5rem;
+}
+
+/* Fields */
+
+.formField {
+  display: flex;
+  flex-direction: column;
+}
+
+.formField input {
+  padding: 0.6rem;
+}
+
+/* Error */
+
+.errorMessage {
+  margin: 0;
+}
+
+/* Button */
+
+.loginButton {
+  margin-top: 0.5rem;
+}

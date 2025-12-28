@@ -1,0 +1,79 @@
+/* Layout */
+.edit-habit {
+  padding: 2rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Navigation */
+.edit-habit__back {
+  display: inline-block;
+  margin-bottom: 1rem;
+  text-decoration: none;
+  color: #4f46e5; /* justera till din färg */
+}
+
+.edit-habit__back:hover {
+  text-decoration: underline;
+}
+
+/* Title */
+.edit-habit__title {
+  margin-bottom: 1.5rem;
+}
+
+/* Form */
+.edit-habit__form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Field */
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.form-field label {
+  font-weight: 500;
+}
+
+/* Inputs */
+.form-field input,
+.form-field textarea,
+.form-field select {
+  padding: 0.6rem;
+  border-radius: 6px;
+  border: 1px solid #d1d5db;
+  font-size: 0.95rem;
+}
+
+.form-field textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.form-field input:focus,
+.form-field textarea:focus,
+.form-field select:focus {
+  outline: none;
+  border-color: #4f46e5;
+}
+
+/* Button */
+.edit-habit__submit {
+  margin-top: 1rem;
+  padding: 0.7rem;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  background: #4f46e5;
+  color: white;
+  font-weight: 600;
+}
+
+.edit-habit__submit:hover {
+  opacity: 0.9;
+}
