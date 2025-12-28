@@ -1,0 +1,22 @@
+/* =========================
+   Profile layout (prototype)
+   ========================= */
+
+.profile {
+  padding: 2rem;
+  max-width: 600px;
+  margin: 0 auto;
+
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* Loading state */
+
+.profile--loading {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

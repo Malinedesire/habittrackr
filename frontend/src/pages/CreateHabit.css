@@ -1,0 +1,32 @@
+.createHabit {
+  padding: 2rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.intro {
+  margin-bottom: 2rem;
+}
+
+.form {
+  margin-top: 2rem;
+}
+
+.field {
+  margin-bottom: 1.5rem;
+}
+
+.actions {
+  display: flex;
+  gap: 1rem;
+}
+
+.flexibleInput {
+  margin-bottom: 1.5rem;
+}
+
+.radioGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}

@@ -1,6 +1,8 @@
+import "./SupportSection.css";
+
 const SupportSection = () => {
   return (
-    <section>
+    <section className="supportSection">
       <h2>Support</h2>
       <button>Help & FAQs</button>
       <button>Send feedback</button>

@@ -1,4 +1,5 @@
 import { getBestStreak } from "../../utils/streak";
+import "./HabitStreakInfo.css";
 
 type Props = {
   completedDates?: string[];
@@ -27,23 +28,10 @@ const HabitStreakInfo = ({ completedDates = [] }: Props) => {
   })();
 
   return (
-    <section
-      style={{
-        border: "1px solid #333",
-        borderRadius: "8px",
-        padding: "1rem",
-        marginTop: "1.5rem",
-      }}
-    >
+    <section className="habitStreakInfo">
       <h3>Streak information</h3>
 
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          marginTop: "1rem",
-        }}
-      >
+      <div className="stats">
         <Stat label="Current streak" value={`${currentStreak} days`} />
         <Stat label="Best streak" value={`${bestStreak} days`} />
         <Stat label="Total days" value={completedDates.length} />
@@ -53,9 +41,9 @@ const HabitStreakInfo = ({ completedDates = [] }: Props) => {
 };
 
 const Stat = ({ label, value }: { label: string; value: string | number }) => (
-  <div style={{ textAlign: "center" }}>
+  <div className="stat">
     <strong>{value}</strong>
-    <div style={{ fontSize: "0.75rem", opacity: 0.6 }}>{label}</div>
+    <div className="statLabel">{label}</div>
   </div>
 );
 

@@ -4,6 +4,7 @@ import { auth, db } from "../firebase";
 import { useEffect, useState } from "react";
 import Loading from "../components/ui/Loading";
 import ErrorMessage from "../components/ui/ErrorMessage";
+import "./EditHabit.css";
 
 type FrequencyType = "daily" | "weekdays" | "weekends" | "flexible";
 
@@ -78,14 +79,16 @@ const EditHabit = () => {
   if (error) return <ErrorMessage message={error} />;
 
   return (
-    <main style={{ padding: "2rem", maxWidth: "600px", margin: "0 auto" }}>
-      <Link to={`/habits/${id}`}>← Back</Link>
+    <main className="edit-habit">
+      <Link to={`/habits/${id}`} className="edit-habit__back">
+        ← Back
+      </Link>
 
-      <h1 style={{ marginTop: "1rem" }}>Edit habit</h1>
+      <h1 className="edit-habit__title">Edit habit</h1>
 
-      <form onSubmit={handleSave} style={{ marginTop: "1.5rem" }}>
+      <form onSubmit={handleSave} className="edit-habit__form">
         {/* Title */}
-        <div style={{ marginBottom: "1rem" }}>
+        <div className="form-field">
           <label>Title</label>
           <input
             value={title}
@@ -95,7 +98,7 @@ const EditHabit = () => {
         </div>
 
         {/* Description */}
-        <div style={{ marginBottom: "1rem" }}>
+        <div className="form-field">
           <label>Description</label>
           <textarea
             value={description}
@@ -104,7 +107,7 @@ const EditHabit = () => {
         </div>
 
         {/* Frequency */}
-        <div style={{ marginBottom: "1rem" }}>
+        <div className="form-field">
           <label>Frequency</label>
           <select
             value={frequencyType}
@@ -117,9 +120,9 @@ const EditHabit = () => {
           </select>
         </div>
 
-        {/* Flexible input */}
+        {/* Flexible */}
         {frequencyType === "flexible" && (
-          <div style={{ marginBottom: "1.5rem" }}>
+          <div className="form-field">
             <label>Times per week</label>
             <input
               type="number"
@@ -131,7 +134,9 @@ const EditHabit = () => {
           </div>
         )}
 
-        <button type="submit">Save changes</button>
+        <button type="submit" className="edit-habit__submit">
+          Save changes
+        </button>
       </form>
     </main>
   );

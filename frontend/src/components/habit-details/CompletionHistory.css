@@ -1,0 +1,11 @@
+.completionHistory {
+  margin-top: 2rem;
+}
+
+.list {
+  margin-top: 0.5rem;
+}
+
+.empty {
+  opacity: 0.7;
+}

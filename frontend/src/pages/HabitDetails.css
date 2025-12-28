@@ -1,0 +1,23 @@
+/* Layout */
+.habit-details {
+  padding: 2.5rem 2rem;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+/* Back link */
+.habit-details__back {
+  display: inline-block;
+  margin-bottom: 1.5rem;
+  text-decoration: none;
+  color: #4f46e5;
+}
+
+.habit-details__back:hover {
+  text-decoration: underline;
+}
+
+/* Spacing between sections */
+.habit-details > * + * {
+  margin-top: 2rem;
+}

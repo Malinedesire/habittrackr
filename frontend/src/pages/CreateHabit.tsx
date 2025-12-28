@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { auth, db } from "../firebase";
+import "./CreateHabit.css";
 
 type FrequencyType = "daily" | "weekdays" | "weekends" | "flexible";
 
@@ -39,13 +40,15 @@ const CreateHabit = () => {
   };
 
   return (
-    <main style={{ padding: "2rem", maxWidth: "600px", margin: "0 auto" }}>
-      <h1>Create new habit</h1>
-      <p>Set up a habit you want to build consistently.</p>
+    <main className="createHabit">
+      <div className="intro">
+        <h1>Create new habit</h1>
+        <p>Set up a habit you want to build consistently.</p>
+      </div>
 
-      <form onSubmit={handleSubmit} style={{ marginTop: "2rem" }}>
+      <form onSubmit={handleSubmit} className="form">
         {/* Habit name */}
-        <div style={{ marginBottom: "1.5rem" }}>
+        <div className="field">
           <label>
             Habit name
             <input
@@ -59,7 +62,7 @@ const CreateHabit = () => {
         </div>
 
         {/* Frequency */}
-        <fieldset style={{ marginBottom: "1.5rem" }}>
+        <fieldset className="field radioGroup">
           <legend>Frequency</legend>
 
           <label>
@@ -73,8 +76,6 @@ const CreateHabit = () => {
             Every day
           </label>
 
-          <br />
-
           <label>
             <input
               type="radio"
@@ -86,8 +87,6 @@ const CreateHabit = () => {
             Weekdays
           </label>
 
-          <br />
-
           <label>
             <input
               type="radio"
@@ -98,8 +97,6 @@ const CreateHabit = () => {
             />
             Weekends
           </label>
-
-          <br />
 
           <label>
             <input
@@ -115,7 +112,7 @@ const CreateHabit = () => {
 
         {/* Flexible input */}
         {frequency === "flexible" && (
-          <div style={{ marginBottom: "1.5rem" }}>
+          <div className="flexibleInput">
             <label>
               Times per week
               <input
@@ -130,7 +127,7 @@ const CreateHabit = () => {
         )}
 
         {/* Optional note */}
-        <div style={{ marginBottom: "2rem" }}>
+        <div className="field">
           <label>
             Why this habit matters (optional)
             <textarea
@@ -142,7 +139,7 @@ const CreateHabit = () => {
         </div>
 
         {/* Actions */}
-        <div style={{ display: "flex", gap: "1rem" }}>
+        <div className="actions">
           <button type="submit">Create habit</button>
           <button type="button" onClick={() => navigate("/dashboard")}>
             Cancel

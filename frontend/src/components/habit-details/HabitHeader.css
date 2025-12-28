@@ -1,0 +1,45 @@
+.habitHeader {
+  border: 1px solid #333;
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+}
+
+.topRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.title {
+  margin-bottom: 0.25rem;
+}
+
+.description {
+  opacity: 0.8;
+}
+
+.actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.iconButton {
+  background: transparent;
+  border: 1px solid #333;
+  border-radius: 6px;
+  padding: 0.4rem 0.5rem;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.deleteButton {
+  color: #ff5252;
+}
+
+.meta {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  opacity: 0.7;
+}

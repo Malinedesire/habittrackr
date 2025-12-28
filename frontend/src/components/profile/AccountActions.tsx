@@ -1,6 +1,7 @@
 import { signOut } from "firebase/auth";
 import { auth } from "../../firebase";
 import { useNavigate } from "react-router-dom";
+import "./AccountActions.css";
 
 const AccountActions = () => {
   const navigate = useNavigate();
@@ -11,10 +12,10 @@ const AccountActions = () => {
   };
 
   return (
-    <section style={{ marginTop: "3rem" }}>
+    <section className="accountActions">
       <button onClick={handleLogout}>Log out</button>
 
-      <button disabled style={{ marginTop: "1rem", color: "red" }}>
+      <button disabled className="deleteButton">
         Delete account
       </button>
     </section>

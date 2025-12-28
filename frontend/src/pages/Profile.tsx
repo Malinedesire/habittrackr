@@ -10,6 +10,8 @@ import Loading from "../components/ui/Loading";
 import { getBestStreak } from "../utils/streak";
 import type { Habit } from "../types/habit";
 
+import "./Profile.css";
+
 const Profile = () => {
   const [habits, setHabits] = useState<Habit[]>([]);
   const [loading, setLoading] = useState(true);
@@ -50,14 +52,14 @@ const Profile = () => {
 
   if (loading) {
     return (
-      <main style={{ padding: "2rem" }}>
+      <main className="profile profile--loading">
         <Loading message="Loading profile..." />
       </main>
     );
   }
 
   return (
-    <main style={{ padding: "2rem", maxWidth: "600px", margin: "0 auto" }}>
+    <main className="profile">
       <ProfileHeader habitCount={habitCount} bestStreak={bestStreak} />
       <PreferencesSection />
       <DataPrivacySection />
