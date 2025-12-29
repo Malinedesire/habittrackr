@@ -79,7 +79,7 @@ const EditHabit = () => {
   if (error) return <ErrorMessage message={error} />;
 
   return (
-    <main className="edit-habit">
+    <main className="appLayout">
       <Link to={`/habits/${id}`} className="edit-habit__back">
         ← Back
       </Link>

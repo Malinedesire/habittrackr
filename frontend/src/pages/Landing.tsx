@@ -3,7 +3,7 @@ import "./Landing.css";
 
 const Landing = () => {
   return (
-    <main className="landing">
+    <main className="appLayout">
       {/* Header / Navigation */}
       <header className="landingHeader">
         <strong className="logo">HabitTrackr</strong>

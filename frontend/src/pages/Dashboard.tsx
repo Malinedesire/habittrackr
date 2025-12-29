@@ -90,7 +90,7 @@ const Dashboard = () => {
   };
 
   return (
-    <main className="dashboard">
+    <main className="appLayout">
       <header className="dashboardHeader">
         <h1>Welcome back!</h1>
         <p>Here’s an overview of your habits and progress.</p>

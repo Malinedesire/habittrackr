@@ -76,7 +76,7 @@ const HabitDetails = () => {
   if (!habit) return null;
 
   return (
-    <main className="habit-details">
+    <main className="appLayout habit-details">
       <Link to="/dashboard" className="habit-details__back">
         ← Back to dashboard
       </Link>
@@ -87,14 +87,7 @@ const HabitDetails = () => {
         onDelete={handleDeleteHabit}
       />
 
-      <HabitStreakInfo completedDates={habit.completedDates} />
-
       <CompletionHistory completedDates={habit.completedDates} />
-
-      <PlaceholderSection
-        title="Monthly progress"
-        description="Monthly progress visualization will be available in a future update."
-      />
 
       <PlaceholderSection
         title="Recent activity"

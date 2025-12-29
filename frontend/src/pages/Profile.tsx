@@ -59,7 +59,7 @@ const Profile = () => {
   }
 
   return (
-    <main className="profile">
+    <main className="appLayout">
       <ProfileHeader habitCount={habitCount} bestStreak={bestStreak} />
       <PreferencesSection />
       <DataPrivacySection />

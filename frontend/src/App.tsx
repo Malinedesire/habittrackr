@@ -8,6 +8,7 @@ import CreateHabit from "./pages/CreateHabit";
 import Profile from "./pages/Profile";
 import HabitDetails from "./pages/HabitDetails";
 import EditHabit from "./pages/EditHabit";
+import "./styles/layout.css";
 
 function App() {
   return (

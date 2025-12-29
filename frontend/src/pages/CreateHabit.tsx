@@ -13,6 +13,7 @@ const CreateHabit = () => {
   const [frequency, setFrequency] = useState<FrequencyType>("daily");
   const [targetPerPeriod, setTargetPerPeriod] = useState<number>(3);
   const [note, setNote] = useState("");
+  const [category, setCategory] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -29,6 +30,7 @@ const CreateHabit = () => {
         description: note,
         frequencyType: frequency,
         targetPerPeriod: frequency === "flexible" ? targetPerPeriod : null,
+        category,
         isActive: true,
         createdAt: serverTimestamp(),
       });
@@ -40,7 +42,7 @@ const CreateHabit = () => {
   };
 
   return (
-    <main className="createHabit">
+    <main className="appLayout">
       <div className="intro">
         <h1>Create new habit</h1>
         <p>Set up a habit you want to build consistently.</p>
@@ -50,7 +52,7 @@ const CreateHabit = () => {
         {/* Habit name */}
         <div className="field">
           <label>
-            Habit name
+            <p className="fieldLabel">What do you want to do?</p>
             <input
               type="text"
               value={name}
@@ -62,53 +64,43 @@ const CreateHabit = () => {
         </div>
 
         {/* Frequency */}
-        <fieldset className="field radioGroup">
-          <legend>Frequency</legend>
+        <div className="field">
+          <p className="fieldLabel">How often?</p>
 
-          <label>
-            <input
-              type="radio"
-              name="frequency"
-              value="daily"
-              checked={frequency === "daily"}
-              onChange={() => setFrequency("daily")}
-            />
-            Every day
-          </label>
+          <div className="frequencyOptions">
+            <button
+              type="button"
+              className={`option ${frequency === "daily" ? "active" : ""}`}
+              onClick={() => setFrequency("daily")}
+            >
+              Every day
+            </button>
 
-          <label>
-            <input
-              type="radio"
-              name="frequency"
-              value="weekdays"
-              checked={frequency === "weekdays"}
-              onChange={() => setFrequency("weekdays")}
-            />
-            Weekdays
-          </label>
+            <button
+              type="button"
+              className={`option ${frequency === "weekdays" ? "active" : ""}`}
+              onClick={() => setFrequency("weekdays")}
+            >
+              Weekdays only
+            </button>
 
-          <label>
-            <input
-              type="radio"
-              name="frequency"
-              value="weekends"
-              checked={frequency === "weekends"}
-              onChange={() => setFrequency("weekends")}
-            />
-            Weekends
-          </label>
+            <button
+              type="button"
+              className={`option ${frequency === "weekends" ? "active" : ""}`}
+              onClick={() => setFrequency("weekends")}
+            >
+              Weekends only
+            </button>
 
-          <label>
-            <input
-              type="radio"
-              name="frequency"
-              value="flexible"
-              checked={frequency === "flexible"}
-              onChange={() => setFrequency("flexible")}
-            />
-            Flexible (X times per week)
-          </label>
-        </fieldset>
+            <button
+              type="button"
+              className={`option ${frequency === "flexible" ? "active" : ""}`}
+              onClick={() => setFrequency("flexible")}
+            >
+              Pick number of times per week
+            </button>
+          </div>
+        </div>
 
         {/* Flexible input */}
         {frequency === "flexible" && (
@@ -125,6 +117,30 @@ const CreateHabit = () => {
             </label>
           </div>
         )}
+
+        <div className="field">
+          <p className="fieldLabel">Category (optional)</p>
+
+          <div className="categoryOptions">
+            {[
+              "fitness",
+              "mental",
+              "work",
+              "creative",
+              "learning",
+              "health",
+            ].map((item) => (
+              <button
+                key={item}
+                type="button"
+                className={`categoryChip ${category === item ? "active" : ""}`}
+                onClick={() => setCategory(category === item ? null : item)}
+              >
+                {item}
+              </button>
+            ))}
+          </div>
+        </div>
 
         {/* Optional note */}
         <div className="field">
