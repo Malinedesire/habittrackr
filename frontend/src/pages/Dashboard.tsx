@@ -15,6 +15,7 @@ import Loading from "../components/ui/Loading";
 import ErrorMessage from "../components/ui/ErrorMessage";
 import "./Dashboard.css";
 import DailyChallenge from "../components/challenges/DailyChallenge";
+import DashboardHeader from "../components/dashboard/DashboardHeader";
 
 const today = new Date().toISOString().split("T")[0];
 
@@ -91,23 +92,36 @@ const Dashboard = () => {
 
   return (
     <main className="appLayout">
-      <header className="dashboardHeader">
-        <h1>Welcome back!</h1>
-        <p>Here’s an overview of your habits and progress.</p>
-
-        <div className="headerActions">
-          <Link to="/profile">
-            <button>Profile settings</button>
-          </Link>
-          <button onClick={handleLogout}>Log out</button>
-        </div>
-      </header>
+      <DashboardHeader onLogout={handleLogout}/>
 
       <section className="statsGrid">
-        <div className="statsCard">Stats card</div>
-        <div className="statsCard">Stats card</div>
-        <div className="statsCard">Stats card</div>
-        <div className="statsCard">Stats card</div>
+        <div className="statsCard">
+          <span className="statLabel">Total habits</span>
+          <strong>{habits.length}</strong>
+        </div>
+
+        <div className="statsCard">
+          <span className="statLabel">Completed today</span>
+          <strong>
+            {habits.filter((h) => h.completedDates?.includes(today)).length}
+          </strong>
+        </div>
+
+        <div className="statsCard">
+          <span className="statLabel">This week</span>
+          <strong>
+            {
+              habits.filter(
+                (h) => getCompletedThisWeek(h.completedDates ?? []) > 0
+              ).length
+            }
+          </strong>
+        </div>
+
+        <div className="statsCard">
+          <span className="statLabel">Consistency</span>
+          <strong>—</strong>
+        </div>
       </section>
 
       <Link to="/habits/new">
@@ -138,18 +152,23 @@ const Dashboard = () => {
 
                 return (
                   <li key={habit.id} className="habitItem">
-                    <div className="habitHeader">
-                      <Link to={`/habits/${habit.id}`}>
-                        <strong className="habitTitle">{habit.title}</strong>
-                      </Link>
+                    <div className="activeHabits">
+                      <div className="habitInfo">
+                        <Link to={`/habits/${habit.id}`}>
+                          <strong className="habitTitle">{habit.title}</strong>
+                        </Link>
+                        <span className="habitMeta">
+                          {completedThisWeek} / 7 days this week
+                        </span>
+                      </div>
 
                       <button
                         onClick={() => markHabitDone(habit.id)}
                         disabled={doneToday}
-                        aria-label="Mark habit as done"
                         className={`checkButton ${doneToday ? "done" : ""}`}
+                        aria-label="Mark habit as done"
                       >
-                        {doneToday ? "✓" : ""}
+                        ✓
                       </button>
                     </div>
 
