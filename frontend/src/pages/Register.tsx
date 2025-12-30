@@ -18,7 +18,7 @@ const Register = () => {
 
     try {
       await createUserWithEmailAndPassword(auth, email, password);
-      navigate("/dashboard");
+      navigate("/onboarding");
     } catch (err: any) {
       console.error(err);
       setError(getAuthErrorMessage(err.code));

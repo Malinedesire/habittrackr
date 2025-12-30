@@ -13,6 +13,7 @@ import EditHabit from "./pages/EditHabit";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import AppLayout from "./layouts/AppLayout";
 import PublicLayout from "./layouts/PublicLayout";
+import Onboarding from "./pages/Onboarding";
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
             </ProtectedRoute>
           }
         >
+          <Route path="/onboarding" element={<Onboarding />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/habits/new" element={<CreateHabit />} />
           <Route path="/habits/:id" element={<HabitDetails />} />

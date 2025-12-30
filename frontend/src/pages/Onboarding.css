@@ -1,0 +1,167 @@
+/* Page */
+.onboarding {
+  min-height: 75vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+  padding: 2rem;
+}
+
+/* Card */
+.onboardingCard {
+  width: 100%;
+  max-width: 420px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+/* Text */
+.onboardingQuestion {
+  font-size: 0.95rem;
+  color: #111;
+  margin-bottom: 0.25rem;
+}
+
+.onboardingHint {
+  font-size: 0.85rem;
+  color: #6b7280;
+  margin-bottom: 2rem;
+}
+
+/* Input */
+.onboardingCard input {
+  width: 100%;
+  padding: 0.9rem 1rem;
+  font-size: 0.95rem;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+  outline: none;
+}
+
+.onboardingCard input:focus {
+  border-color: #111;
+}
+
+/* Options */
+.onboardingOptions {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+}
+
+.option {
+  width: 100%;
+  padding: 0.9rem 1rem;
+  border-radius: 14px;
+  border: 1px solid #e5e7eb;
+  background: #f9fafb;
+  font-size: 0.9rem;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.option:hover {
+  background: #f3f4f6;
+}
+
+.option.selected {
+  background: #000;
+  color: #fff;
+  border-color: #000;
+}
+
+/* Color variants */
+.option--red {
+  background: #fff5f5;
+  border-color: #fecaca;
+  color: #b91c1c;
+}
+
+.option--purple {
+  background: #faf5ff;
+  border-color: #ddd6fe;
+  color: #6d28d9;
+}
+
+.option--blue {
+  background: #eff6ff;
+  border-color: #bfdbfe;
+  color: #1d4ed8;
+}
+
+.option--green {
+  background: #ecfdf5;
+  border-color: #a7f3d0;
+  color: #047857;
+}
+
+.option--yellow {
+  background: #fffbeb;
+  border-color: #fde68a;
+  color: #92400e;
+}
+
+.option--gray {
+  background: #f9fafb;
+  border-color: #e5e7eb;
+  color: #374151;
+}
+
+/* Actions */
+.onboardingActions {
+  width: 100%;
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+/* Buttons */
+.primary {
+  flex: 1;
+  padding: 0.9rem;
+  border-radius: 14px;
+  border: none;
+  background: #000;
+  color: #fff;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.primary:disabled {
+  background: #9ca3af;
+  cursor: not-allowed;
+}
+
+.secondary {
+  padding: 0.9rem 1.1rem;
+  border-radius: 14px;
+  border: 1px solid #e5e7eb;
+  background: transparent;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+/* Progress dots */
+.onboardingProgress {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 2rem;
+}
+
+.onboardingProgress span {
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: #e5e7eb;
+}
+
+.onboardingProgress span.active {
+  background: #000;
+  width: 16px;
+}
