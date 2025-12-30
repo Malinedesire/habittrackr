@@ -25,7 +25,7 @@ const Login = () => {
   };
 
   return (
-    <main className="appLayout">
+    <main>
       <section className="login">
         <form className="loginForm" onSubmit={(e) => e.preventDefault()}>
           <h1 className="loginTitle">Welcome back!</h1>

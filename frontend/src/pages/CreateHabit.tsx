@@ -42,7 +42,7 @@ const CreateHabit = () => {
   };
 
   return (
-    <main className="appLayout">
+    <main>
       <div className="intro">
         <h1>Create new habit</h1>
         <p>Set up a habit you want to build consistently.</p>

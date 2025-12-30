@@ -75,7 +75,7 @@ const HabitDetails = () => {
   if (!habit) return null;
 
   return (
-    <main className="appLayout habit-details">
+    <main className="habit-details">
       <Link to="/dashboard" className="habit-details__back">
         ← Back to dashboard
       </Link>

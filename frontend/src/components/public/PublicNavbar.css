@@ -1,0 +1,45 @@
+.publicNavbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 2rem;
+}
+
+.publicLogo {
+  font-weight: 600;
+  text-decoration: none;
+  color: inherit;
+}
+
+.publicNav {
+  display: flex;
+  gap: 1.25rem;
+}
+
+.navText {
+  font-size: 0.9rem;
+  color: var(--color-muted);
+}
+
+.navText a {
+  margin-left: 0.25rem;
+  text-decoration: none;
+}
+
+.navText a:hover {
+  text-decoration: underline;
+}
+
+.publicNav .authLink {
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.publicNav .authLink:hover {
+  text-decoration: underline;
+}
+
+.publicNav a:focus-visible {
+  outline: 2px solid var(--color-border);
+  outline-offset: 2px;
+}

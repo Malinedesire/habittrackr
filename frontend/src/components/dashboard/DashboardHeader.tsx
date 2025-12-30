@@ -1,11 +1,8 @@
 import { Link } from "react-router-dom";
 import "./DashboardHeader.css";
 
-type Props = {
-  onLogout: () => void;
-};
 
-const DashboardHeader = ({ onLogout }: Props) => {
+const DashboardHeader = () => {
   const today = new Date().toLocaleDateString("en-US", {
     weekday: "long",
     month: "long",
@@ -24,16 +21,6 @@ const DashboardHeader = ({ onLogout }: Props) => {
         <Link to="/habits/new" className="newHabitButton">
           + New Habit
         </Link>
-      </div>
-
-      <div className="dashboardHeaderActions">
-        <Link to="/profile">
-          <button className="secondaryButton">Profile</button>
-        </Link>
-
-        <button className="secondaryButton" onClick={onLogout}>
-          Sign out
-        </button>
       </div>
     </header>
   );

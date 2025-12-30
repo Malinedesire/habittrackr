@@ -1,6 +1,4 @@
 import { Link } from "react-router-dom";
-import { signOut } from "firebase/auth";
-import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import {
   collection,
@@ -31,15 +29,9 @@ const getCompletedThisWeek = (dates: string[] = []) => {
 };
 
 const Dashboard = () => {
-  const navigate = useNavigate();
   const [habits, setHabits] = useState<Habit[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-
-  const handleLogout = async () => {
-    await signOut(auth);
-    navigate("/login");
-  };
 
   useEffect(() => {
     const fetchHabits = async () => {
@@ -91,8 +83,8 @@ const Dashboard = () => {
   };
 
   return (
-    <main className="appLayout">
-      <DashboardHeader onLogout={handleLogout}/>
+    <main>
+      <DashboardHeader />
 
       <section className="statsGrid">
         <div className="statsCard">

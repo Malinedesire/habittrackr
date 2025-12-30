@@ -3,18 +3,7 @@ import "./Landing.css";
 
 const Landing = () => {
   return (
-    <main className="appLayout">
-      {/* Header / Navigation */}
-      <header className="landingHeader">
-        <strong className="logo">HabitTrackr</strong>
-
-        <nav className="nav">
-          <Link to="/login">Login</Link>
-          <Link to="/register">Sign up</Link>
-        </nav>
-      </header>
-
-      {/* Hero section */}
+    <main>
       <section className="hero">
         <div className="heroContent">
           <h1>Stop planning. Start doing.</h1>

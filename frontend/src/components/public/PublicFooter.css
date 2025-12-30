@@ -1,0 +1,6 @@
+.publicFooter {
+  padding: 2rem;
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--color-muted);
+}

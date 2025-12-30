@@ -1,0 +1,42 @@
+.appHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 1rem 2rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.appLogo {
+  font-weight: 600;
+  text-decoration: none;
+  color: inherit;
+}
+
+.appHeaderActions {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.headerLink {
+  text-decoration: none;
+  font-size: 0.9rem;
+  color: var(--color-muted);
+}
+
+.headerLink:hover {
+  text-decoration: underline;
+}
+
+.headerButton {
+  background: none;
+  border: none;
+  font-size: 0.9rem;
+  cursor: pointer;
+  color: var(--color-muted);
+}
+
+.headerButton:hover {
+  text-decoration: underline;
+}
