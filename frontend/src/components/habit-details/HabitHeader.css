@@ -29,6 +29,7 @@
 .habitBadges {
   display: flex;
   gap: 0.5rem;
+  align-items: center;
 }
 
 .badge {
@@ -103,4 +104,23 @@
 .stat span {
   font-size: 0.75rem;
   opacity: 0.85;
+}
+
+/* Categories */
+.habitCategory {
+  margin-top: 0.5rem;
+}
+
+.habitHeader .categoryChip {
+  color: white;
+  padding: 0.25rem 0.6rem;
+  font-size: 0.75rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.18);
+  border-color: transparent;
+  cursor: default;
+}
+
+.habitHeader .categoryChip:hover {
+  opacity: 1;
 }

@@ -1,4 +1,5 @@
 import type { Habit } from "../../types/habit";
+import { CATEGORIES } from "../../constants/categories";
 import "./HabitHeader.css";
 
 type Props = {
@@ -9,6 +10,8 @@ type Props = {
 
 const HabitHeader = ({ habit, onEdit, onDelete }: Props) => {
   const totalCompleted = habit.completedDates?.length ?? 0;
+
+  const category = CATEGORIES.find((c) => c.id === habit.category);
 
   return (
     <section className="habitHeader">
@@ -23,6 +26,12 @@ const HabitHeader = ({ habit, onEdit, onDelete }: Props) => {
 
           <div className="habitBadges">
             <span className="badge">{habit.frequencyType}</span>
+
+            {category && (
+              <span className={`categoryChip categoryChip--${category.color}`}>
+                {category.label}
+              </span>
+            )}
           </div>
         </div>
 
