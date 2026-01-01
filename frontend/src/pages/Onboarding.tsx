@@ -1,33 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { CATEGORIES } from "../constants/categories";
 import "./Onboarding.css";
-
-const focusOptions = [
-  {
-    label: "fitness & health",
-    color: "red",
-  },
-  {
-    label: "mindfulness & mental health",
-    color: "purple",
-  },
-  {
-    label: "productivity & work",
-    color: "blue",
-  },
-  {
-    label: "learning & growth",
-    color: "green",
-  },
-  {
-    label: "creativity & hobbies",
-    color: "yellow",
-  },
-  {
-    label: "just exploring",
-    color: "gray",
-  },
-];
 
 const Onboarding = () => {
   const navigate = useNavigate();
@@ -76,18 +50,20 @@ const Onboarding = () => {
         {step === 2 && (
           <>
             <p className="onboardingQuestion">Quick question</p>
-            <p className="onboardingHint">What are you hoping to improve right now?</p>
+            <p className="onboardingHint">
+              What are you hoping to improve right now?
+            </p>
 
             <div className="onboardingOptions">
-              {focusOptions.map((option) => (
+              {CATEGORIES.map((category) => (
                 <button
-                  key={option.label}
-                  className={`option option--${option.color} ${
-                    focus === option.label ? "selected" : ""
+                  key={category.id}
+                  className={`option option--${category.color} ${
+                    focus === category.id ? "selected" : ""
                   }`}
-                  onClick={() => setFocus(option.label)}
+                  onClick={() => setFocus(category.id)}
                 >
-                  {option.label}
+                  {category.label}
                 </button>
               ))}
             </div>

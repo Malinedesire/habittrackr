@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { auth, db } from "../firebase";
+import { CATEGORIES } from "../constants/categories";
 import "./CreateHabit.css";
 
 type FrequencyType = "daily" | "weekdays" | "weekends" | "flexible";
@@ -13,7 +14,9 @@ const CreateHabit = () => {
   const [frequency, setFrequency] = useState<FrequencyType>("daily");
   const [targetPerPeriod, setTargetPerPeriod] = useState<number>(3);
   const [note, setNote] = useState("");
-  const [category, setCategory] = useState<string | null>(null);
+  const [category, setCategory] = useState<
+    (typeof CATEGORIES)[number]["id"] | null
+  >(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -122,21 +125,18 @@ const CreateHabit = () => {
           <p className="fieldLabel">Category (optional)</p>
 
           <div className="categoryOptions">
-            {[
-              "fitness",
-              "mental",
-              "work",
-              "creative",
-              "learning",
-              "health",
-            ].map((item) => (
+            {CATEGORIES.map((item) => (
               <button
-                key={item}
+                key={item.id}
                 type="button"
-                className={`categoryChip ${category === item ? "active" : ""}`}
-                onClick={() => setCategory(category === item ? null : item)}
+                className={`categoryChip categoryChip--${item.color} ${
+                  category === item.id ? "active" : ""
+                }`}
+                onClick={() =>
+                  setCategory(category === item.id ? null : item.id)
+                }
               >
-                {item}
+                {item.label}
               </button>
             ))}
           </div>
