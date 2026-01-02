@@ -2,11 +2,6 @@
   padding: 2rem;
 }
 
-/* Header */
-.dashboardHeader {
-  margin-bottom: 2rem;
-}
-
 .headerActions {
   display: flex;
   gap: 1rem;
@@ -18,7 +13,6 @@
   font-size: 0.9rem;
 }
 
-/* Stats */
 .statsGrid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -41,97 +35,9 @@
   color: var(--color-muted);
 }
 
-/* Layout */
 .mainGrid {
   display: grid;
   grid-template-columns: 2fr 1fr;
   gap: 2rem;
-}
-
-/* Habits list */
-.habitsCard {
-  border: 1px dashed #ccc;
-  padding: 1.5rem;
-}
-
-.habitsCard ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.habitItem {
-  margin-bottom: 1.5rem;
-  padding: 1rem;
-  border: 1px solid var(--color-border);
-  border-radius: 8px;
-}
-
-.activeHabits {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.habitInfo {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-}
-
-.habitMeta {
-  font-size: 0.75rem;
-  color: var(--color-muted);
-}
-
-.habitTitle {
-  cursor: pointer;
-}
-
-.checkButton {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  border: 1.5px solid #22c55e;
-  background: white;
-  color: #22c55e;
-  font-weight: bold;
-  cursor: pointer;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.checkButton.done {
-  background: #22c55e;
-  color: white;
-  cursor: default;
-}
-
-/* Progress */
-.progressText {
-  font-size: 0.85rem;
-  opacity: 0.7;
-  margin-top: 0.25rem;
-}
-
-.progressBar {
-  height: 6px;
-  background: #e5e7eb;
-  border-radius: 999px;
-  margin-top: 0.5rem;
-}
-
-.progressFill {
-  height: 100%;
-  background: #22c55e;
-  border-radius: 999px;
-  transition: width 0.3s ease;
-}
-
-/* Aside */
-.overviewCard {
-  border: 1px dashed #ccc;
-  padding: 1.5rem;
+  align-items: start;
 }

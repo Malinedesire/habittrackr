@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import {
   collection,
@@ -14,6 +13,7 @@ import ErrorMessage from "../components/ui/ErrorMessage";
 import "./Dashboard.css";
 import DailyChallenge from "../components/challenges/DailyChallenge";
 import DashboardHeader from "../components/dashboard/DashboardHeader";
+import HabitCard from "../components/dashboard/HabitCard";
 
 const today = new Date().toISOString().split("T")[0];
 
@@ -83,7 +83,7 @@ const Dashboard = () => {
   };
 
   return (
-    <main>
+    <main className="dashboard">
       <DashboardHeader />
 
       <section className="statsGrid">
@@ -116,74 +116,37 @@ const Dashboard = () => {
         </div>
       </section>
 
-      <Link to="/habits/new">
-        <button>+ New habit</button>
-      </Link>
-
       <section className="mainGrid">
-        <div className="habitsCard">
+        {/* LEFT: habits */}
+        <section>
           <h2>Active habits</h2>
 
           {loading && <Loading message="Loading habits..." />}
           {error && <ErrorMessage message={error} />}
 
-          {!loading && habits.length === 0 && (
-            <p>You haven’t created any habits yet.</p>
-          )}
-
           {!loading && habits.length > 0 && (
-            <ul>
+            <div className="habitsGrid">
               {habits.map((habit) => {
-                const doneToday = habit.completedDates?.includes(today);
-                const completedThisWeek = getCompletedThisWeek(
-                  habit.completedDates ?? []
-                );
-                const progressPercent = Math.round(
-                  (completedThisWeek / 7) * 100
-                );
+                const doneToday = habit.completedDates?.includes(today) ?? false;
+                const completedThisWeek = getCompletedThisWeek(habit.completedDates ?? []);
 
                 return (
-                  <li key={habit.id} className="habitItem">
-                    <div className="activeHabits">
-                      <div className="habitInfo">
-                        <Link to={`/habits/${habit.id}`}>
-                          <strong className="habitTitle">{habit.title}</strong>
-                        </Link>
-                        <span className="habitMeta">
-                          {completedThisWeek} / 7 days this week
-                        </span>
-                      </div>
-
-                      <button
-                        onClick={() => markHabitDone(habit.id)}
-                        disabled={doneToday}
-                        className={`checkButton ${doneToday ? "done" : ""}`}
-                        aria-label="Mark habit as done"
-                      >
-                        ✓
-                      </button>
-                    </div>
-
-                    <div className="progressText">
-                      {completedThisWeek} / 7 days this week
-                    </div>
-
-                    <div className="progressBar">
-                      <div
-                        className="progressFill"
-                        style={{ width: `${progressPercent}%` }}
-                      />
-                    </div>
-                  </li>
+                  <HabitCard
+                    key={habit.id}
+                    habit={habit}
+                    completedThisWeek={completedThisWeek}
+                    isDoneToday={doneToday}
+                    onComplete={() => markHabitDone(habit.id)}
+                  />
                 );
               })}
-            </ul>
+            </div>
           )}
-        </div>
+        </section>
 
+        {/* RIGHT: overview */}
         <aside className="overviewCard">
           <h2>Overview</h2>
-          <p>Weekly overview, stats and motivation widgets.</p>
           <DailyChallenge />
         </aside>
       </section>
