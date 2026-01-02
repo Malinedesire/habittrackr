@@ -1,32 +1,181 @@
-.createHabit {
-  padding: 2rem;
-  max-width: 600px;
-  margin: 0 auto;
+/* Layout */
+
+.form {
+  max-width: 450px;
 }
 
-.intro {
+/* Intro */
+
+.intro h1 {
+  margin-bottom: 0.25rem;
+}
+
+.intro p {
+  color: var(--color-muted);
+}
+
+/* Fields */
+
+.field {
   margin-bottom: 2rem;
 }
 
-.form {
-  margin-top: 2rem;
+.fieldLabel {
+  margin-bottom: 0.75rem;
+  font-size: 0.9rem;
+  font-weight: 500;
 }
 
-.field {
-  margin-bottom: 1.5rem;
+/* Inputs */
+
+input,
+textarea {
+  width: 100%;
+  padding: 0.75rem;
+  font-size: 0.9rem;
+
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
 }
+
+textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+/* Frequency options */
+
+.frequencyOptions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.option {
+  padding: 0.9rem;
+  text-align: left;
+
+  background: #fff;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+
+  cursor: pointer;
+}
+
+.option.active {
+  background: #000;
+  color: #fff;
+  border-color: #000;
+}
+
+/* Flexible input */
+
+.flexibleInput {
+  margin-top: -1rem;
+  margin-bottom: 2rem;
+}
+
+/* Actions */
 
 .actions {
   display: flex;
   gap: 1rem;
+  margin-top: 2.5rem;
 }
 
-.flexibleInput {
-  margin-bottom: 1.5rem;
+.actions button {
+  flex: 1;
+  padding: 0.75rem;
+  border-radius: var(--radius-md);
 }
 
-.radioGroup {
+.actions button:first-child {
+  background: #000;
+  color: #fff;
+}
+
+.actions button:last-child {
+  background: #f3f4f6;
+}
+
+/* Categories */
+
+.categoryOptions {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
   gap: 0.5rem;
+}
+
+.categoryChip {
+  padding: 0.4rem 0.75rem;
+  font-size: 0.8rem;
+
+  background: #fff;
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+
+  cursor: pointer;
+}
+
+.categoryChip.active {
+  background: #000;
+  color: #fff;
+  border-color: #000;
+}
+
+/* Categories */
+
+.categoryOptions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.categoryChip {
+  padding: 0.4rem 0.75rem;
+  font-size: 0.8rem;
+  cursor: pointer;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  background: transparent;
+}
+
+.categoryChip:hover {
+  opacity: 0.85;
+}
+
+.categoryChip--red {
+  border-color: #fecaca;
+  color: #b91c1c;
+}
+
+.categoryChip--purple {
+  border-color: #ddd6fe;
+  color: #6d28d9;
+}
+
+.categoryChip--blue {
+  border-color: #bfdbfe;
+  color: #1d4ed8;
+}
+
+.categoryChip--green {
+  border-color: #a7f3d0;
+  color: #047857;
+}
+
+.categoryChip--yellow {
+  border-color: #fde68a;
+  color: #92400e;
+}
+
+.categoryChip--gray {
+  border-color: #e5e7eb;
+  color: #374151;
+}
+
+.categoryChip.active {
+  background: #000;
+  color: #fff;
+  border-color: #000;
 }

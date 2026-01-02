@@ -9,7 +9,6 @@ import ErrorMessage from "../components/ui/ErrorMessage";
 import HabitHeader from "../components/habit-details/HabitHeader";
 import CompletionHistory from "../components/habit-details/CompletionHistory";
 import PlaceholderSection from "../components/habit-details/PlaceholderSection";
-import HabitStreakInfo from "../components/habit-details/HabitStreakInfo";
 
 import "./HabitDetails.css";
 
@@ -87,14 +86,7 @@ const HabitDetails = () => {
         onDelete={handleDeleteHabit}
       />
 
-      <HabitStreakInfo completedDates={habit.completedDates} />
-
       <CompletionHistory completedDates={habit.completedDates} />
-
-      <PlaceholderSection
-        title="Monthly progress"
-        description="Monthly progress visualization will be available in a future update."
-      />
 
       <PlaceholderSection
         title="Recent activity"

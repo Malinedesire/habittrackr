@@ -1,4 +1,5 @@
 import type { Habit } from "../../types/habit";
+import { CATEGORIES } from "../../constants/categories";
 import "./HabitHeader.css";
 
 type Props = {
@@ -8,25 +9,38 @@ type Props = {
 };
 
 const HabitHeader = ({ habit, onEdit, onDelete }: Props) => {
+  const totalCompleted = habit.completedDates?.length ?? 0;
+
+  const category = CATEGORIES.find((c) => c.id === habit.category);
+
   return (
     <section className="habitHeader">
-      {/* Top row: title + actions */}
-      <div className="topRow">
-        <div>
-          <h1 className="title">{habit.title}</h1>
+      {/* Header top */}
+      <div className="habitHeaderTop">
+        <div className="habitHeaderText">
+          <h1 className="habitTitle">{habit.title}</h1>
 
           {habit.description && (
-            <p className="description">{habit.description}</p>
+            <p className="habitDescription">{habit.description}</p>
           )}
+
+          <div className="habitBadges">
+            <span className="badge">{habit.frequencyType}</span>
+
+            {category && (
+              <span className={`categoryChip categoryChip--${category.color}`}>
+                {category.label}
+              </span>
+            )}
+          </div>
         </div>
 
-        {/* Actions */}
-        <div className="actions">
+        <div className="habitActions">
           {onEdit && (
             <button
               onClick={onEdit}
               aria-label="Edit habit"
-              className="iconButton"
+              className="iconButton edit"
             >
               ✏️
             </button>
@@ -35,17 +49,29 @@ const HabitHeader = ({ habit, onEdit, onDelete }: Props) => {
           <button
             onClick={onDelete}
             aria-label="Delete habit"
-            className="iconButton deleteButton"
+            className="iconButton delete"
           >
             🗑️
           </button>
         </div>
       </div>
 
-      {/* Meta info */}
-      <div className="meta">
-        <p>Frequency: {habit.frequencyType}</p>
-        <p>Total completed: {habit.completedDates?.length ?? 0} days</p>
+      {/* Stats */}
+      <div className="habitStats">
+        <div className="stat">
+          <strong>{totalCompleted}</strong>
+          <span>Total days</span>
+        </div>
+
+        <div className="stat">
+          <strong>{totalCompleted}</strong>
+          <span>Current streak</span>
+        </div>
+
+        <div className="stat">
+          <strong>{totalCompleted}</strong>
+          <span>Best streak</span>
+        </div>
       </div>
     </section>
   );

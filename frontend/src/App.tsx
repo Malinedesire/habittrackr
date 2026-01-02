@@ -1,61 +1,46 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+
 import Landing from "./pages/Landing";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+
 import Dashboard from "./pages/Dashboard";
-import ProtectedRoute from "./routes/ProtectedRoute";
 import CreateHabit from "./pages/CreateHabit";
 import Profile from "./pages/Profile";
 import HabitDetails from "./pages/HabitDetails";
 import EditHabit from "./pages/EditHabit";
 
+import ProtectedRoute from "./routes/ProtectedRoute";
+import AppLayout from "./layouts/AppLayout";
+import PublicLayout from "./layouts/PublicLayout";
+import Onboarding from "./pages/Onboarding";
+
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Landing />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
+        {/* ---------- PUBLIC ROUTES ---------- */}
+        <Route element={<PublicLayout />}>
+          <Route path="/" element={<Landing />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+        </Route>
+
+        {/* ---------- PROTECTED APP ROUTES ---------- */}
         <Route
-          path="/habits/new"
           element={
             <ProtectedRoute>
-              <CreateHabit />
+              <AppLayout />
             </ProtectedRoute>
           }
-        />
-        <Route
-          path="/habits/:id"
-          element={
-            <ProtectedRoute>
-              <HabitDetails />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/habits/:id/edit"
-          element={
-            <ProtectedRoute>
-              <EditHabit />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/dashboard"
-          element={
-            <ProtectedRoute>
-              <Dashboard />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/profile"
-          element={
-            <ProtectedRoute>
-              <Profile />
-            </ProtectedRoute>
-          }
-        />
+        >
+          <Route path="/onboarding" element={<Onboarding />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/habits/new" element={<CreateHabit />} />
+          <Route path="/habits/:id" element={<HabitDetails />} />
+          <Route path="/habits/:id/edit" element={<EditHabit />} />
+          <Route path="/profile" element={<Profile />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );

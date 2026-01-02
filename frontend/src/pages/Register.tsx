@@ -18,7 +18,7 @@ const Register = () => {
 
     try {
       await createUserWithEmailAndPassword(auth, email, password);
-      navigate("/dashboard");
+      navigate("/onboarding");
     } catch (err: any) {
       console.error(err);
       setError(getAuthErrorMessage(err.code));
@@ -26,7 +26,7 @@ const Register = () => {
   };
 
   return (
-    <main className="register">
+    <main>
       <form className="registerForm" onSubmit={handleSubmit}>
         <h1 className="registerTitle">Create account</h1>
 

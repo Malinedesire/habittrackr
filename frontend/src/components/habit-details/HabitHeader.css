@@ -1,45 +1,126 @@
 .habitHeader {
-  border: 1px solid #333;
-  padding: 1.5rem;
-  border-radius: 8px;
-  margin-bottom: 2rem;
+  background: #0ea5a4 !important;
+  color: white;
+  border-radius: 16px;
+  padding: 2rem;
 }
 
-.topRow {
+/* Top row */
+.habitHeaderTop {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
-  gap: 1rem;
+  gap: 1.5rem;
 }
 
-.title {
+.habitHeaderText {
+  max-width: 70%;
+}
+
+.habitTitle {
+  margin: 0 0 0.25rem;
+}
+
+.habitDescription {
+  margin: 0 0 1rem;
+  opacity: 0.9;
+}
+
+/* Badges */
+.habitBadges {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.badge {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+}
+
+/* Actions */
+/* Actions container */
+.habitActions {
+  display: flex;
+  gap: 0.5rem;
+  align-items: flex-start;
+}
+
+/* Base icon button */
+.iconButton {
+  width: 40px;
+  height: 40px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+
+  background: rgba(255, 255, 255, 0.18);
+  color: white;
+  font-size: 0.95rem;
+
+  transition: background 0.15s ease, transform 0.1s ease;
+}
+
+/* Hover */
+.iconButton:hover {
+  background: rgba(255, 255, 255, 0.28);
+  transform: translateY(-1px);
+}
+
+/* Edit */
+.iconButton.edit {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Delete */
+.iconButton.delete {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.iconButton.delete:hover {
+  background: rgba(239, 68, 68, 0.35); /* röd hint */
+}
+
+/* Stats */
+.habitStats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.stat strong {
+  display: block;
+  font-size: 1.8rem;
   margin-bottom: 0.25rem;
 }
 
-.description {
-  opacity: 0.8;
+.stat span {
+  font-size: 0.75rem;
+  opacity: 0.85;
 }
 
-.actions {
-  display: flex;
-  gap: 0.5rem;
+/* Categories */
+.habitCategory {
+  margin-top: 0.5rem;
 }
 
-.iconButton {
-  background: transparent;
-  border: 1px solid #333;
-  border-radius: 6px;
-  padding: 0.4rem 0.5rem;
-  cursor: pointer;
-  font-size: 1rem;
+.habitHeader .categoryChip {
+  color: white;
+  padding: 0.25rem 0.6rem;
+  font-size: 0.75rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.18);
+  border-color: transparent;
+  cursor: default;
 }
 
-.deleteButton {
-  color: #ff5252;
-}
-
-.meta {
-  margin-top: 1rem;
-  font-size: 0.9rem;
-  opacity: 0.7;
+.habitHeader .categoryChip:hover {
+  opacity: 1;
 }

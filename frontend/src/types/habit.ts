@@ -1,4 +1,7 @@
 import type { Timestamp } from "firebase/firestore";
+import { CATEGORIES } from "../constants/categories";
+
+export type Category = (typeof CATEGORIES)[number]["id"];
 
 export type Habit = {
   id: string;
@@ -7,6 +10,7 @@ export type Habit = {
   frequencyType: "daily" | "weekdays" | "weekends" | "flexible";
   targetPerPeriod?: number;
   isActive: boolean;
-  createdAt: Timestamp; 
+  createdAt: Timestamp;
   completedDates?: string[];
+  category?: Category | null;
 };

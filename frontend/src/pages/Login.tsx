@@ -25,36 +25,41 @@ const Login = () => {
   };
 
   return (
-    <main className="login">
-      <form className="loginForm" onSubmit={(e) => e.preventDefault()}>
-        <h1 className="loginTitle">Log in</h1>
+    <main>
+      <section className="login">
+        <form className="loginForm" onSubmit={(e) => e.preventDefault()}>
+          <h1 className="loginTitle">Welcome back!</h1>
+          <p className="loginSubtitle">
+            Sign in to continue building your habits
+          </p>
 
-        <div className="formField">
-          <input
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </div>
+          <div className="formField">
+            <input
+              type="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
 
-        <div className="formField">
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
+          <div className="formField">
+            <input
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
 
-        {error && <p className="errorMessage">{error}</p>}
+          {error && <p className="errorMessage">{error}</p>}
 
-        <button type="button" className="loginButton" onClick={handleSubmit}>
-          Log in
-        </button>
-      </form>
+          <button type="button" className="loginButton" onClick={handleSubmit}>
+            Log in
+          </button>
+        </form>
+      </section>
     </main>
   );
 };
