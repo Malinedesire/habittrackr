@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { CATEGORIES } from "../constants/categories";
+import { doc, setDoc } from "firebase/firestore";
+import { auth, db } from "../firebase";
 import "./Onboarding.css";
 
 const Onboarding = () => {
@@ -10,8 +12,17 @@ const Onboarding = () => {
   const [name, setName] = useState("");
   const [focus, setFocus] = useState<string | null>(null);
 
-  const goToDashboard = () => {
-    // senare: spara name + focus i Firestore
+  const goToDashboard = async () => {
+    const user = auth.currentUser;
+    if (!user) return;
+
+    await setDoc(doc(db, "users", user.uid), {
+      name,
+      focus,
+      onboardingCompleted: true,
+    });
+
+    localStorage.setItem("onboardingCompleted", "true");
     navigate("/dashboard");
   };
 

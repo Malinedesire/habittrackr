@@ -17,6 +17,7 @@ const Login = () => {
 
     try {
       await signInWithEmailAndPassword(auth, email, password);
+      localStorage.setItem("onboardingCompleted", "true");
       navigate("/dashboard");
     } catch (err: any) {
       console.error(err);
