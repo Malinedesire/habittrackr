@@ -13,4 +13,6 @@ export type Habit = {
   createdAt: Timestamp;
   completedDates?: string[];
   category?: Category | null;
+  bestStreak?: number;
+  currentStreak?: number;
 };
