@@ -7,9 +7,7 @@ import { useEffect, useState } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { auth, db } from "../firebase";
 import Loading from "../components/ui/Loading";
-import { getBestStreak } from "../utils/streak";
 import type { Habit } from "../types/habit";
-
 import "./Profile.css";
 
 const Profile = () => {
@@ -47,7 +45,7 @@ const Profile = () => {
   const habitCount = habits.length;
 
   const bestStreak = habits.reduce((max, habit) => {
-    return Math.max(max, getBestStreak(habit.completedDates ?? []));
+    return Math.max(max, habit.bestStreak ?? 0);
   }, 0);
 
   if (loading) {
