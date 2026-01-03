@@ -18,6 +18,7 @@ const Register = () => {
 
     try {
       await createUserWithEmailAndPassword(auth, email, password);
+      localStorage.removeItem("onboardingCompleted");
       navigate("/onboarding");
     } catch (err: any) {
       console.error(err);

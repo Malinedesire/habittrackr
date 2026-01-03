@@ -14,6 +14,7 @@ import ProtectedRoute from "./routes/ProtectedRoute";
 import AppLayout from "./layouts/AppLayout";
 import PublicLayout from "./layouts/PublicLayout";
 import Onboarding from "./pages/Onboarding";
+import OnboardingGuard from "./routes/OnBoardingGuard";
 
 function App() {
   return (
@@ -34,7 +35,15 @@ function App() {
             </ProtectedRoute>
           }
         >
-          <Route path="/onboarding" element={<Onboarding />} />
+          <Route
+            path="/onboarding"
+            element={
+              <OnboardingGuard>
+                <Onboarding />
+              </OnboardingGuard>
+            }
+          />
+
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/habits/new" element={<CreateHabit />} />
           <Route path="/habits/:id" element={<HabitDetails />} />
