@@ -37,7 +37,10 @@ const ProfileHeader = ({ habitCount, bestStreak }: Props) => {
         <div className="profileStats">
           <Stat label="habits" value={habitCount} />
           <Stat label="challenges" value={0} />
-          <Stat label="best streak" value={`${bestStreak} days`} />
+          <Stat
+            label="best streak"
+            value={bestStreak > 0 ? `${bestStreak} days` : "—"}
+          />
         </div>
 
         {/* Edit profile */}

@@ -14,19 +14,13 @@ import "./Dashboard.css";
 import DailyChallenge from "../components/challenges/DailyChallenge";
 import DashboardHeader from "../components/dashboard/DashboardHeader";
 import HabitCard from "../components/dashboard/HabitCard";
+import DashboardStats from "../components/dashboard/DashboardStats";
+import {
+  getCompletedLast7Days,
+  getCompletedThisCalendarWeek,
+} from "../utils/dateHelper";
 
 const today = new Date().toISOString().split("T")[0];
-
-const getCompletedThisWeek = (dates: string[] = []) => {
-  const today = new Date();
-  const last7Days = new Date();
-  last7Days.setDate(today.getDate() - 6);
-
-  return dates.filter((date) => {
-    const d = new Date(date);
-    return d >= last7Days && d <= today;
-  }).length;
-};
 
 const Dashboard = () => {
   const [habits, setHabits] = useState<Habit[]>([]);
@@ -62,6 +56,24 @@ const Dashboard = () => {
     fetchHabits();
   }, []);
 
+  const completedToday = habits.filter((h) =>
+    h.completedDates?.includes(today)
+  ).length;
+
+  const activeThisWeek = habits.filter((h) => {
+    const completed =
+      h.frequencyType === "weekly"
+        ? getCompletedThisCalendarWeek(h.completedDates ?? [])
+        : getCompletedLast7Days(h.completedDates ?? []);
+
+    return completed > 0;
+  }).length;
+
+  const bestStreak = habits.reduce(
+    (max, habit) => Math.max(max, habit.bestStreak ?? 0),
+    0
+  );
+
   const markHabitDone = async (habitId: string) => {
     const user = auth.currentUser;
     if (!user) return;
@@ -86,35 +98,12 @@ const Dashboard = () => {
     <main className="dashboard">
       <DashboardHeader />
 
-      <section className="statsGrid">
-        <div className="statsCard">
-          <span className="statLabel">Total habits</span>
-          <strong>{habits.length}</strong>
-        </div>
-
-        <div className="statsCard">
-          <span className="statLabel">Completed today</span>
-          <strong>
-            {habits.filter((h) => h.completedDates?.includes(today)).length}
-          </strong>
-        </div>
-
-        <div className="statsCard">
-          <span className="statLabel">This week</span>
-          <strong>
-            {
-              habits.filter(
-                (h) => getCompletedThisWeek(h.completedDates ?? []) > 0
-              ).length
-            }
-          </strong>
-        </div>
-
-        <div className="statsCard">
-          <span className="statLabel">Consistency</span>
-          <strong>—</strong>
-        </div>
-      </section>
+      <DashboardStats
+        habitCount={habits.length}
+        completedToday={completedToday}
+        activeThisWeek={activeThisWeek}
+        bestStreak={bestStreak}
+      />
 
       <section className="mainGrid">
         {/* LEFT: habits */}
@@ -127,14 +116,19 @@ const Dashboard = () => {
           {!loading && habits.length > 0 && (
             <div className="habitsGrid">
               {habits.map((habit) => {
-                const doneToday = habit.completedDates?.includes(today) ?? false;
-                const completedThisWeek = getCompletedThisWeek(habit.completedDates ?? []);
+                const doneToday =
+                  habit.completedDates?.includes(today) ?? false;
+
+                const completedThisPeriod =
+                  habit.frequencyType === "weekly"
+                    ? getCompletedThisCalendarWeek(habit.completedDates ?? [])
+                    : getCompletedLast7Days(habit.completedDates ?? []);
 
                 return (
                   <HabitCard
                     key={habit.id}
                     habit={habit}
-                    completedThisWeek={completedThisWeek}
+                    completedThisWeek={completedThisPeriod}
                     isDoneToday={doneToday}
                     onComplete={() => markHabitDone(habit.id)}
                   />
