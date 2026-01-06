@@ -1,8 +1,10 @@
 import { Link } from "react-router-dom";
+import { useUser } from "../../context/UserContext";
 import "./DashboardHeader.css";
 
-
 const DashboardHeader = () => {
+  const { user, loading } = useUser();
+
   const today = new Date().toLocaleDateString("en-US", {
     weekday: "long",
     month: "long",
@@ -10,11 +12,15 @@ const DashboardHeader = () => {
     year: "numeric",
   });
 
+  if (loading) return null;
+
   return (
     <header className="dashboardHeader">
       <div className="dashboardHeaderTop">
         <div>
-          <h1 className="dashboardTitle">My Habits</h1>
+          <h1 className="dashboardTitle">
+            {user?.name ? `Hello, ${user.name} 💙` : "Hello 👋"}
+          </h1>
           <p className="dashboardDate">{today}</p>
         </div>
 

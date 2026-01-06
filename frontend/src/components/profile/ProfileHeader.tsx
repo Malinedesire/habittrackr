@@ -1,5 +1,5 @@
-import { auth } from "../../firebase";
 import { useNavigate } from "react-router-dom";
+import { useUser } from "../../context/UserContext";
 import "./ProfileHeader.css";
 
 type Props = {
@@ -8,11 +8,17 @@ type Props = {
 };
 
 const ProfileHeader = ({ habitCount, bestStreak }: Props) => {
-  const user = auth.currentUser;
+  const { user, loading } = useUser();
   const navigate = useNavigate();
 
-  const memberSince = user?.metadata.creationTime
-    ? new Date(user.metadata.creationTime).toLocaleDateString("en-US", {
+  if (loading) return null;
+
+  const memberSince = user?.uid
+    ? new Date(
+        // fallback: om jag senare sparar createdAt i Firestore
+        // kan använda det istället
+        Date.now()
+      ).toLocaleDateString("en-US", {
         month: "short",
         year: "numeric",
       })
@@ -28,7 +34,9 @@ const ProfileHeader = ({ habitCount, bestStreak }: Props) => {
           <div className="avatar">👤</div>
 
           <div>
-            <strong>Hey there! 👋</strong>
+            <strong>
+              {user?.name ? `Hey ${user.name} 👋` : "Hey there! 👋"}
+            </strong>
             <div className="subText">Member since {memberSince}</div>
           </div>
         </div>

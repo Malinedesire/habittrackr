@@ -16,11 +16,15 @@ const Onboarding = () => {
     const user = auth.currentUser;
     if (!user) return;
 
-    await setDoc(doc(db, "users", user.uid), {
-      name,
-      focus,
-      onboardingCompleted: true,
-    });
+    await setDoc(
+      doc(db, "users", user.uid),
+      {
+        name,
+        focus,
+        onboardingCompleted: true,
+      },
+      { merge: true }
+    );
 
     localStorage.setItem("onboardingCompleted", "true");
     navigate("/dashboard");
