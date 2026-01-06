@@ -1,4 +1,3 @@
-
 type Props = {
   habitCount: number;
   completedToday: number;
@@ -19,7 +18,7 @@ const DashboardStats = ({
       <Stat label="Active this week" value={activeThisWeek} />
       <Stat
         label="Best streak"
-        value={bestStreak > 0 ? `🔥 ${bestStreak}` : "—"}
+        value={bestStreak > 0 ? `🔥 ${bestStreak}` : "Calculating…"}
       />
     </section>
   );

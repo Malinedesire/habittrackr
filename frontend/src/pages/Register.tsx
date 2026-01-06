@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase";
 import { getAuthErrorMessage } from "../utils/firebaseErrors";
+import { doc, setDoc, serverTimestamp } from "firebase/firestore";
+import { db } from "../firebase";
 
 import "./Register.css";
 
@@ -17,7 +19,15 @@ const Register = () => {
     setError(null);
 
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
+      const cred = await createUserWithEmailAndPassword(auth, email, password);
+
+      const uid = cred.user.uid;
+
+      // 👇 VIKTIGASTE RADEN I HELA DEN HÄR BUGGEN
+      await setDoc(doc(db, "users", uid), {
+        createdAt: serverTimestamp(),
+      });
+
       localStorage.removeItem("onboardingCompleted");
       navigate("/onboarding");
     } catch (err: any) {

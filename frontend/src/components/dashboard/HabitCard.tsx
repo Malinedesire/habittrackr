@@ -17,13 +17,6 @@ const HabitCard = ({
   onComplete,
 }: Props) => {
   const category = CATEGORIES.find((c) => c.id === habit.category);
-console.log({
-  title: habit.title,
-  frequency: habit.frequencyType,
-  completedThisWeek,
-  target: habit.targetPerPeriod,
-});
-
 
   //STREAK
   const streakValue = habit.currentStreak ?? 0;
