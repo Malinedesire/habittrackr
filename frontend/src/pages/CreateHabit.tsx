@@ -5,7 +5,7 @@ import { auth, db } from "../firebase";
 import { CATEGORIES } from "../constants/categories";
 import "./CreateHabit.css";
 
-type FrequencyType = "daily" | "weekdays" | "weekends" | "flexible";
+type FrequencyType = "daily" | "weekly";
 
 const CreateHabit = () => {
   const navigate = useNavigate();
@@ -32,7 +32,7 @@ const CreateHabit = () => {
         title: name,
         description: note,
         frequencyType: frequency,
-        targetPerPeriod: frequency === "flexible" ? targetPerPeriod : null,
+        targetPerPeriod: frequency === "weekly" ? targetPerPeriod : null,
         category,
         isActive: true,
         createdAt: serverTimestamp(),
@@ -46,122 +46,110 @@ const CreateHabit = () => {
 
   return (
     <main>
-      <div className="intro">
-        <h1>Create new habit</h1>
-        <p>Set up a habit you want to build consistently.</p>
-      </div>
-
-      <form onSubmit={handleSubmit} className="form">
-        {/* Habit name */}
-        <div className="field">
-          <label>
-            <p className="fieldLabel">What do you want to do?</p>
-            <input
-              type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              placeholder="e.g. Go to the gym"
-              required
-            />
-          </label>
-        </div>
-
-        {/* Frequency */}
-        <div className="field">
-          <p className="fieldLabel">How often?</p>
-
-          <div className="frequencyOptions">
-            <button
-              type="button"
-              className={`option ${frequency === "daily" ? "active" : ""}`}
-              onClick={() => setFrequency("daily")}
-            >
-              Every day
-            </button>
-
-            <button
-              type="button"
-              className={`option ${frequency === "weekdays" ? "active" : ""}`}
-              onClick={() => setFrequency("weekdays")}
-            >
-              Weekdays only
-            </button>
-
-            <button
-              type="button"
-              className={`option ${frequency === "weekends" ? "active" : ""}`}
-              onClick={() => setFrequency("weekends")}
-            >
-              Weekends only
-            </button>
-
-            <button
-              type="button"
-              className={`option ${frequency === "flexible" ? "active" : ""}`}
-              onClick={() => setFrequency("flexible")}
-            >
-              Pick number of times per week
-            </button>
+      <section className="createHabit">
+        <div className="createHabitCard">
+          <div className="intro">
+            <h1>Create new habit</h1>
+            <p>Build a better you, one habit at a time.</p>
           </div>
-        </div>
 
-        {/* Flexible input */}
-        {frequency === "flexible" && (
-          <div className="flexibleInput">
-            <label>
-              Times per week
-              <input
-                type="number"
-                min={1}
-                max={7}
-                value={targetPerPeriod}
-                onChange={(e) => setTargetPerPeriod(Number(e.target.value))}
-              />
-            </label>
-          </div>
-        )}
+          <form onSubmit={handleSubmit} className="form">
+            {/* Habit name */}
+            <div className="field">
+              <label>
+                <p className="fieldLabel">What do you want to do?</p>
+                <input
+                  type="text"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  placeholder="e.g. Go to the gym"
+                  required
+                />
+              </label>
+            </div>
 
-        <div className="field">
-          <p className="fieldLabel">Category (optional)</p>
+            {/* Frequency */}
+            <div className="field">
+              <p className="fieldLabel">How often?</p>
 
-          <div className="categoryOptions">
-            {CATEGORIES.map((item) => (
-              <button
-                key={item.id}
-                type="button"
-                className={`categoryChip categoryChip--${item.color} ${
-                  category === item.id ? "active" : ""
-                }`}
-                onClick={() =>
-                  setCategory(category === item.id ? null : item.id)
-                }
-              >
-                {item.label}
+              <div className="frequencyOptions">
+                <button
+                  type="button"
+                  className={`option ${frequency === "daily" ? "active" : ""}`}
+                  onClick={() => setFrequency("daily")}
+                >
+                  Every day
+                </button>
+
+                <button
+                  type="button"
+                  className={`option ${frequency === "weekly" ? "active" : ""}`}
+                  onClick={() => setFrequency("weekly")}
+                >
+                  Pick number of times per week
+                </button>
+              </div>
+            </div>
+
+            {/* Flexible input */}
+            {frequency === "weekly" && (
+              <div className="flexibleInput">
+                <label>
+                  Times per week
+                  <input
+                    type="number"
+                    min={1}
+                    max={7}
+                    value={targetPerPeriod}
+                    onChange={(e) => setTargetPerPeriod(Number(e.target.value))}
+                  />
+                </label>
+              </div>
+            )}
+
+            <div className="field">
+              <p className="fieldLabel">Category (optional)</p>
+
+              <div className="categoryOptions">
+                {CATEGORIES.map((item) => (
+                  <button
+                    key={item.id}
+                    type="button"
+                    className={`categoryChip categoryChip--${item.color} ${
+                      category === item.id ? "active" : ""
+                    }`}
+                    onClick={() =>
+                      setCategory(category === item.id ? null : item.id)
+                    }
+                  >
+                    {item.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Optional note */}
+            <div className="field">
+              <label>
+                Why this habit matters (optional)
+                <textarea
+                  value={note}
+                  onChange={(e) => setNote(e.target.value)}
+                  placeholder="Write a short note to motivate yourself"
+                />
+              </label>
+            </div>
+
+            {/* Actions */}
+            <div className="actions">
+              <button type="submit">Create habit</button>
+              <button type="button" onClick={() => navigate("/dashboard")}>
+                Cancel
               </button>
-            ))}
-          </div>
+            </div>
+          </form>
         </div>
-
-        {/* Optional note */}
-        <div className="field">
-          <label>
-            Why this habit matters (optional)
-            <textarea
-              value={note}
-              onChange={(e) => setNote(e.target.value)}
-              placeholder="Write a short note to motivate yourself"
-            />
-          </label>
-        </div>
-
-        {/* Actions */}
-        <div className="actions">
-          <button type="submit">Create habit</button>
-          <button type="button" onClick={() => navigate("/dashboard")}>
-            Cancel
-          </button>
-        </div>
-      </form>
+      </section>
     </main>
   );
 };

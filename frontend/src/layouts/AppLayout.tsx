@@ -6,9 +6,11 @@ const AppLayout = () => {
   return (
     <>
       <AppHeader />
-      <main className="appLayout">
-        <Outlet />
-      </main>
+      <div className="pageBg">
+        <main className="appLayout">
+          <Outlet />
+        </main>
+      </div>
       <AppFooter />
     </>
   );

@@ -14,7 +14,7 @@ console.log("Project:", process.env.GCLOUD_PROJECT);
 
 export const calculateHabitStreaks = onSchedule(
   {
-    schedule: "*/5 * * * *",
+    schedule: "*0 3 * * * *",
     timeZone: "Europe/Stockholm",
   },
   async () => {

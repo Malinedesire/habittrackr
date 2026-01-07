@@ -4,7 +4,6 @@
 
 .login {
   min-height: calc(100vh - 88px);
-  background: #f6f7fb;
 
   display: flex;
   align-items: center;

@@ -1,16 +1,39 @@
 /* Layout */
 
+.createHabit {
+  min-height: calc(100vh - 88px);
+  display: flex;
+  justify-content: center;
+  padding: 2rem 1rem;
+}
+
+.createHabitCard {
+  width: 100%;
+  max-width: 520px;
+
+  background: #fff;
+  border: 1px solid var(--color-border);
+  border-radius: 18px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+
+  padding: 2rem;
+}
+
 .form {
   max-width: 450px;
 }
 
 /* Intro */
+.intro {
+  margin-bottom: 2rem;
+}
 
 .intro h1 {
   margin-bottom: 0.25rem;
 }
 
 .intro p {
+  font-size: 0.9rem;
   color: var(--color-muted);
 }
 
@@ -54,18 +77,30 @@ textarea {
 .option {
   padding: 0.9rem;
   text-align: left;
-
   background: #fff;
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
-
   cursor: pointer;
 }
 
+.option:not(.active):hover {
+  background: #f9fafb;
+}
+
 .option.active {
-  background: #000;
+  background: linear-gradient(135deg, #7c6cff, #a855f7);
   color: #fff;
-  border-color: #000;
+  border: none;
+  transition: transform 0.15s ease;
+}
+
+.option.active:hover {
+  background: linear-gradient(135deg, #7c6cff, #a855f7);
+  box-shadow: 0 0 0 3px rgba(124, 108, 255, 0.25);
+}
+
+.option.active:active {
+  transform: translateY(0);
 }
 
 /* Flexible input */
@@ -80,7 +115,7 @@ textarea {
 .actions {
   display: flex;
   gap: 1rem;
-  margin-top: 2.5rem;
+  margin-top: 2rem;
 }
 
 .actions button {
@@ -90,12 +125,25 @@ textarea {
 }
 
 .actions button:first-child {
-  background: #000;
+  background: linear-gradient(135deg, #7c6cff, #a855f7);
   color: #fff;
+  border: none;
+
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.actions button:first-child:hover {
+  box-shadow: 0 0 0 3px rgba(124, 108, 255, 0.25);
+}
+
+.actions button:first-child:active {
+  transform: translateY(0);
+  box-shadow: 0 3px 8px rgba(124, 108, 255, 0.25);
 }
 
 .actions button:last-child {
   background: #f3f4f6;
+  border: 1px solid var(--color-border);
 }
 
 /* Categories */
