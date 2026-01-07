@@ -37,6 +37,9 @@ const HabitCard = ({
   const hasMetWeeklyGoal =
     isWeekly && weeklyTarget > 0 && completedThisWeek >= weeklyTarget;
 
+  const streakStatus =
+    streakValue > 0 ? "active" : hasMetWeeklyGoal ? "pending" : "none";
+
   return (
     <div className={`habitCard ${isDoneToday ? "done" : ""}`}>
       {/* Top */}
@@ -69,15 +72,20 @@ const HabitCard = ({
       {/* Meta */}
       <div className="habitMeta">
         {/* STREAK */}
-        {streakValue > 0 ? (
+        {streakStatus === "active" && (
           <span>
             🔥 {streakValue} {streakLabel}
           </span>
-        ) : (
+        )}
+
+        {streakStatus === "pending" && (
+          <span className="pendingStreak">⏳ Week goal completed</span>
+        )}
+
+        {streakStatus === "none" && (
           <span className="noStreak">🔥 No streak yet</span>
         )}
 
-        {/* PROGRESS / GOAL */}
         {/* PROGRESS / GOAL */}
         {isWeekly ? (
           hasMetWeeklyGoal ? (

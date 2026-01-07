@@ -145,3 +145,8 @@
   color: white;
   cursor: default;
 }
+
+.pendingStreak {
+  color: #f59e0b; 
+  font-weight: 500;
+}
