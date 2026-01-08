@@ -1,6 +1,6 @@
-import { useNavigate } from "react-router-dom";
 import { useUser } from "../../context/UserContext";
 import "./ProfileHeader.css";
+import { CATEGORIES } from "../../constants/categories";
 
 type Props = {
   habitCount: number;
@@ -9,55 +9,48 @@ type Props = {
 
 const ProfileHeader = ({ habitCount, bestStreak }: Props) => {
   const { user, loading } = useUser();
-  const navigate = useNavigate();
 
-  if (loading) return null;
+  if (loading || !user) return null;
 
-  const memberSince = user?.uid
-    ? new Date(
-        // fallback: om jag senare sparar createdAt i Firestore
-        // kan använda det istället
-        Date.now()
-      ).toLocaleDateString("en-US", {
+  const memberSince = user.createdAt
+    ? user.createdAt.toDate().toLocaleDateString("en-US", {
         month: "short",
         year: "numeric",
       })
     : "—";
 
-  return (
-    <section className="profileSection">
-      <h2>Profile</h2>
+  const category = user.focus
+    ? CATEGORIES.find((c) => c.id === user.focus)
+    : null;
 
-      <div className="profileCard">
-        {/* Top row */}
+  return (
+    <section className="profileHeader">
+      <div className="profileHeaderCard">
         <div className="profileTopRow">
           <div className="avatar">👤</div>
 
-          <div>
-            <strong>
-              {user?.name ? `Hey ${user.name} 👋` : "Hey there! 👋"}
+          <div className="profileInfo">
+            <strong className="profileGreeting">
+              {user.name ? `Hey ${user.name} 👋` : "Hey there 👋"}
             </strong>
+
             <div className="subText">Member since {memberSince}</div>
+
+            {category && (
+              <span className={`profileBadge profileBadge--${category.color}`}>
+                {category.label}
+              </span>
+            )}
           </div>
         </div>
 
-        {/* Stats */}
         <div className="profileStats">
           <Stat label="habits" value={habitCount} />
-          <Stat label="challenges" value={0} />
           <Stat
             label="best streak"
             value={bestStreak > 0 ? `${bestStreak} days` : "—"}
           />
         </div>
-
-        {/* Edit profile */}
-        <button
-          className="editButton"
-          onClick={() => navigate("/reset-password")}
-        >
-          Edit profile →
-        </button>
       </div>
     </section>
   );
@@ -66,7 +59,7 @@ const ProfileHeader = ({ habitCount, bestStreak }: Props) => {
 const Stat = ({ label, value }: { label: string; value: string | number }) => (
   <div className="stat">
     <strong>{value}</strong>
-    <div className="statLabel">{label}</div>
+    <span className="statLabel">{label}</span>
   </div>
 );
 
