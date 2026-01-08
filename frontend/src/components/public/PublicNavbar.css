@@ -3,6 +3,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 1.5rem 2rem;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.05);
 }
 
 .publicLogo {
@@ -31,7 +32,9 @@
 }
 
 .publicNav .authLink {
-  font-weight: 700;
+  font-weight: 500;
+  font-size: 0.95rem;
+  color: #374151;
   text-decoration: none;
 }
 
@@ -42,4 +45,23 @@
 .publicNav a:focus-visible {
   outline: 2px solid var(--color-border);
   outline-offset: 2px;
+}
+
+.publicLogo {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+
+  font-weight: 600;
+  font-size: 1.3rem;
+  letter-spacing: -0.01em;
+
+  text-decoration: none;
+  color: #4c1d95;
+}
+
+.logoIcon {
+  width: 25px;
+  height: 25px;
+  display: block;
 }

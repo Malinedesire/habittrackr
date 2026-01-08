@@ -1,4 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
+import Logo from "../../assets/logo.svg"; // justera path vid behov
 import "./PublicNavbar.css";
 
 const PublicNavbar = () => {
@@ -7,7 +8,8 @@ const PublicNavbar = () => {
   return (
     <header className="publicNavbar">
       <Link to="/" className="publicLogo">
-        HabitTrackr
+        <img src={Logo} alt="HabitTrackr logo" className="logoIcon" />
+        <span>HabitTrackr</span>
       </Link>
 
       <nav className="publicNav">
