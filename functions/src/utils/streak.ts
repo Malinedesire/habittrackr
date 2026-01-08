@@ -1,15 +1,30 @@
+const toUtcDate = (dateStr: string) => new Date(dateStr + "T00:00:00Z");
+
+const daysBetween = (a: string, b: string) => {
+  const d1 = toUtcDate(a);
+  const d2 = toUtcDate(b);
+  return Math.round((d2.getTime() - d1.getTime()) / 86400000);
+};
+
 export const getBestStreak = (dates: string[] = []) => {
   if (dates.length === 0) return 0;
 
-  const sorted = [...dates].sort();
+  const sorted = [...new Set(dates)].sort();
+  console.log("[getBestStreak] sorted dates:", sorted);
+
   let best = 1;
   let current = 1;
 
   for (let i = 1; i < sorted.length; i++) {
-    const prev = new Date(sorted[i - 1]);
-    const curr = new Date(sorted[i]);
-
-    const diff = (curr.getTime() - prev.getTime()) / (1000 * 60 * 60 * 24);
+    const diff = daysBetween(sorted[i - 1], sorted[i]);
+    console.log(
+      "[getBestStreak] compare",
+      sorted[i - 1],
+      "→",
+      sorted[i],
+      "diff:",
+      diff
+    );
 
     if (diff === 1) {
       current++;
@@ -25,24 +40,31 @@ export const getBestStreak = (dates: string[] = []) => {
 export const getCurrentStreak = (dates: string[] = []) => {
   if (dates.length === 0) return 0;
 
-  const sorted = [...dates].sort().reverse(); // senaste först
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
+  const sorted = [...new Set(dates)].sort().reverse();
+  console.log("[getCurrentStreak] sorted desc:", sorted);
+
+  const todayStr = new Date().toISOString().slice(0, 10);
 
   let streak = 0;
-  let expectedDate = new Date(today);
+  let expected = todayStr;
 
   for (const dateStr of sorted) {
-    const date = new Date(dateStr);
-    date.setHours(0, 0, 0, 0);
+    const diff = daysBetween(dateStr, expected);
 
-    const diff =
-      (expectedDate.getTime() - date.getTime()) / (1000 * 60 * 60 * 24);
+    console.log(
+      "[getCurrentStreak] expected:",
+      expected,
+      "actual:",
+      dateStr,
+      "diff:",
+      diff
+    );
 
-    // tillåt idag eller igår som start
     if (diff === 0 || diff === 1) {
       streak++;
-      expectedDate.setDate(expectedDate.getDate() - 1);
+      expected = new Date(toUtcDate(expected).getTime() - 86400000)
+        .toISOString()
+        .slice(0, 10);
     } else {
       break;
     }
@@ -53,17 +75,13 @@ export const getCurrentStreak = (dates: string[] = []) => {
 
 type WeeklyCount = Record<string, number>;
 
-/**
- * Groups dates by ISO year-week (e.g. 2026-03)
- */
 const groupByWeek = (dates: string[]): WeeklyCount => {
   const counts: WeeklyCount = {};
 
   for (const dateStr of dates) {
-    const date = new Date(dateStr);
+    const date = toUtcDate(dateStr);
     const year = date.getUTCFullYear();
 
-    // ISO week calculation
     const temp = new Date(
       Date.UTC(year, date.getUTCMonth(), date.getUTCDate())
     );
@@ -76,6 +94,7 @@ const groupByWeek = (dates: string[]): WeeklyCount => {
     counts[key] = (counts[key] || 0) + 1;
   }
 
+  console.log("[groupByWeek]", counts);
   return counts;
 };
 

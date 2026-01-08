@@ -7,7 +7,7 @@ export type Habit = {
   id: string;
   title: string;
   description?: string;
-  frequencyType: "daily" | "weekdays" | "weekends" | "flexible";
+  frequencyType: "daily" | "weekly";
   targetPerPeriod?: number;
   isActive: boolean;
   createdAt: Timestamp;

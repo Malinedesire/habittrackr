@@ -1,126 +1,96 @@
+/* Wrapper */
 .habitHeader {
-  background: #0ea5a4 !important;
-  color: white;
-  border-radius: 16px;
-  padding: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Card */
+.habitHeaderCard {
+  background: linear-gradient(135deg, #7c6cff, #a855f7);
+  border-radius: 18px;
+  padding: 1.75rem;
+  color: #fff;
 }
 
 /* Top row */
-.habitHeaderTop {
+.habitTopRow {
   display: flex;
   justify-content: space-between;
-  gap: 1.5rem;
+  gap: 1rem;
+  align-items: flex-start;
 }
 
-.habitHeaderText {
-  max-width: 70%;
-}
-
+/* Text */
 .habitTitle {
-  margin: 0 0 0.25rem;
+  font-size: 1.9rem;
 }
 
-.habitDescription {
-  margin: 0 0 1rem;
-  opacity: 0.9;
+.subText {
+  font-size: 0.85rem;
+  opacity: 0.85;
 }
 
 /* Badges */
 .habitBadges {
   display: flex;
   gap: 0.5rem;
-  align-items: center;
+  margin-top: 0.5rem;
 }
 
-.badge {
-  background: rgba(255, 255, 255, 0.2);
+.habitBadge {
   padding: 0.25rem 0.6rem;
+  font-size: 0.7rem;
   border-radius: 999px;
-  font-size: 0.75rem;
-}
-
-/* Actions */
-/* Actions container */
-.habitActions {
-  display: flex;
-  gap: 0.5rem;
-  align-items: flex-start;
-}
-
-/* Base icon button */
-.iconButton {
-  width: 40px;
-  height: 40px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  border-radius: 999px;
-  border: none;
-  cursor: pointer;
-
   background: rgba(255, 255, 255, 0.18);
-  color: white;
-  font-size: 0.95rem;
-
-  transition: background 0.15s ease, transform 0.1s ease;
 }
 
-/* Hover */
-.iconButton:hover {
-  background: rgba(255, 255, 255, 0.28);
-  transform: translateY(-1px);
+.habitBadge--red {
+  background: rgba(185, 28, 28, 0.6);
 }
 
-/* Edit */
-.iconButton.edit {
-  background: rgba(255, 255, 255, 0.2);
+.habitBadge--purple {
+  background: rgba(109, 40, 217, 0.6);
 }
 
-/* Delete */
-.iconButton.delete {
-  background: rgba(255, 255, 255, 0.15);
+.habitBadge--blue {
+  background: rgba(29, 78, 216, 0.6);
 }
 
-.iconButton.delete:hover {
-  background: rgba(239, 68, 68, 0.35); /* röd hint */
+.habitBadge--green {
+  background: rgba(4, 120, 87, 0.6);
+}
+
+.habitBadge--yellow {
+  background: rgba(146, 64, 14, 0.6);
+}
+
+.habitBadge--gray {
+  background: rgba(55, 65, 81, 0.6);
 }
 
 /* Stats */
 .habitStats {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.stat {
   text-align: center;
+  min-width: 80px;
 }
 
 .stat strong {
   display: block;
-  font-size: 1.8rem;
+  font-size: 1.5rem;
+  font-weight: 600;
   margin-bottom: 0.25rem;
 }
 
-.stat span {
-  font-size: 0.75rem;
-  opacity: 0.85;
-}
-
-/* Categories */
-.habitCategory {
-  margin-top: 0.5rem;
-}
-
-.habitHeader .categoryChip {
-  color: white;
-  padding: 0.25rem 0.6rem;
-  font-size: 0.75rem;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.18);
-  border-color: transparent;
-  cursor: default;
-}
-
-.habitHeader .categoryChip:hover {
-  opacity: 1;
+.statLabel {
+  margin-top: 0.25rem;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.75);
 }

@@ -1,21 +1,37 @@
-/* =========================
-   Profile layout (prototype)
-   ========================= */
+/* Profile page */
 
 .profile {
+  min-height: calc(100vh - 90px);
+  background: #f6f7fb;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 2rem 1rem;
+}
+
+/* Profile card */
+
+.profileContainer {
+  width: 100%;
+  max-width: 720px;
+
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+
   padding: 2rem;
-  max-width: 600px;
-  margin: 0 auto;
 
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 1rem;
 }
 
 /* Loading state */
 
 .profile--loading {
-  min-height: 100vh;
+  min-height: calc(100vh - 88px);
   display: flex;
   align-items: center;
   justify-content: center;

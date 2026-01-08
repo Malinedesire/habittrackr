@@ -1,11 +1,13 @@
-.profileSection {
-  margin-bottom: 2rem;
+.profileHeader {
+  margin-bottom: 1.5rem;
 }
 
-.profileCard {
-  background: #1f1f1f;
-  border-radius: 12px;
-  padding: 1.5rem;
+.profileHeaderCard {
+  background: linear-gradient(135deg, #7c6cff, #a855f7);
+  border-radius: 18px;
+  padding: 1.75rem;
+
+  color: #fff;
 }
 
 .profileTopRow {
@@ -18,33 +20,80 @@
   width: 48px;
   height: 48px;
   border-radius: 50%;
-  background: #333;
+  background: rgba(0, 0, 0, 0.25);
+
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
+.profileGreeting {
+  font-size: 1.2rem;
+}
+
 .subText {
   font-size: 0.85rem;
-  opacity: 0.7;
+  opacity: 0.85;
 }
 
 .profileStats {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  gap: 3rem;
   margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .stat {
   text-align: center;
+  min-width: 80px;
+}
+
+.stat strong {
+  font-size: 1.5rem;
+  font-weight: 600;
 }
 
 .statLabel {
-  font-size: 0.75rem;
-  opacity: 0.6;
+  margin-top: 0.25rem;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.75);
 }
 
-.editButton {
-  margin-top: 1.5rem;
-  width: 100%;
+.profileBadge {
+  display: inline-block;
+  margin-top: 0.6rem;
+  padding: 0.25rem 0.6rem;
+
+  font-size: 0.7rem;
+  font-weight: 500;
+
+  border-radius: 999px;
+  color: #fff;
+  opacity: 0.9;
+}
+
+.profileBadge--red {
+  background: rgba(185, 28, 28, 0.6);
+}
+
+.profileBadge--purple {
+  background: rgba(109, 40, 217, 0.6);
+}
+
+.profileBadge--blue {
+  background: rgba(29, 78, 216, 0.6);
+}
+
+.profileBadge--green {
+  background: rgba(4, 120, 87, 0.6);
+}
+
+.profileBadge--yellow {
+  background: rgba(146, 64, 14, 0.6);
+}
+
+.profileBadge--gray {
+  background: rgba(55, 65, 81, 0.6);
 }

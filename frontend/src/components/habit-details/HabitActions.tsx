@@ -1,78 +1,68 @@
 import { useState } from "react";
-import { signOut } from "firebase/auth";
-import { updateDoc, doc } from "firebase/firestore";
-import { auth, db } from "../../firebase";
-import { useNavigate } from "react-router-dom";
-import { useUser } from "../../context/UserContext";
+import type { Habit } from "../../types/habit";
 import { CATEGORIES } from "../../constants/categories";
-import "./AccountActions.css";
+import "./HabitActions.css";
 
-const AccountActions = () => {
-  const navigate = useNavigate();
-  const { user } = useUser();
+type Props = {
+  habit: Habit;
+  onUpdate: (updates: Partial<Habit>) => Promise<void>;
+  onDelete: () => void;
+};
 
+const HabitActions = ({ habit, onUpdate, onDelete }: Props) => {
   const [isEditing, setIsEditing] = useState(false);
-  const [name, setName] = useState(user?.name ?? "");
-  const [focus, setFocus] = useState<string | null>(user?.focus ?? null);
+  const [title, setTitle] = useState(habit.title);
+  const [description, setDescription] = useState(habit.description ?? "");
+  const [category, setCategory] = useState(habit.category);
   const [saving, setSaving] = useState(false);
 
-  const handleLogout = async () => {
-    await signOut(auth);
-    navigate("/login");
-  };
-
   const handleSave = async () => {
-    if (!auth.currentUser) return;
-
     try {
       setSaving(true);
-      await updateDoc(doc(db, "users", auth.currentUser.uid), {
-        name,
-        focus,
-      });
+      await onUpdate({ title, description, category });
       setIsEditing(false);
-    } catch (err) {
-      console.error("Failed to update profile", err);
     } finally {
       setSaving(false);
     }
   };
 
   return (
-    <section className="accountActions">
+    <section className="habitActions">
       {/* Edit toggle */}
       <button
         className="primaryAction"
         onClick={() => setIsEditing((prev) => !prev)}
       >
-        {isEditing ? "Close" : "Edit profile"}
+        {isEditing ? "Close" : "Edit habit"}
       </button>
 
       {/* Edit section */}
       {isEditing && (
-        <div className="editProfile">
-          {/* Name */}
+        <div className="editHabit">
           <div className="editField">
-            <label>Name</label>
+            <label>Title</label>
+            <input value={title} onChange={(e) => setTitle(e.target.value)} />
+          </div>
+
+          <div className="editField">
+            <label>Description</label>
             <input
-              type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
             />
           </div>
 
-          {/* Focus */}
           <div className="editField">
-            <label>Focus</label>
+            <label>Category</label>
             <div className="categoryOptions">
               {CATEGORIES.map((cat) => (
                 <button
                   key={cat.id}
                   type="button"
                   className={`categoryChip categoryChip--${cat.color} ${
-                    focus === cat.id ? "active" : ""
+                    category === cat.id ? "active" : ""
                   }`}
-                  onClick={() => setFocus(cat.id)}
+                  onClick={() => setCategory(cat.id)}
                 >
                   {cat.label}
                 </button>
@@ -80,7 +70,6 @@ const AccountActions = () => {
             </div>
           </div>
 
-          {/* Actions */}
           <div className="editActions">
             <button
               className="primaryAction"
@@ -89,6 +78,7 @@ const AccountActions = () => {
             >
               {saving ? "Saving..." : "Save changes"}
             </button>
+
             <button
               className="secondaryAction"
               onClick={() => setIsEditing(false)}
@@ -99,17 +89,12 @@ const AccountActions = () => {
         </div>
       )}
 
-      {/* Logout */}
-      <button className="secondaryAction" onClick={handleLogout}>
-        Log out
-      </button>
-
-      {/* Delete (disabled, OK för inlämning) */}
-      <button className="dangerAction" disabled>
-        Delete account
+      {/* Delete */}
+      <button className="dangerAction" onClick={onDelete}>
+        Delete habit
       </button>
     </section>
   );
 };
 
-export default AccountActions;
+export default HabitActions;

@@ -1,5 +1,5 @@
 import { useParams, Link, useNavigate } from "react-router-dom";
-import { doc, getDoc, deleteDoc } from "firebase/firestore";
+import { updateDoc, doc, getDoc, deleteDoc } from "firebase/firestore";
 import { auth, db } from "../firebase";
 import { useEffect, useState } from "react";
 import type { Habit } from "../types/habit";
@@ -8,9 +8,9 @@ import ErrorMessage from "../components/ui/ErrorMessage";
 
 import HabitHeader from "../components/habit-details/HabitHeader";
 import CompletionHistory from "../components/habit-details/CompletionHistory";
-import PlaceholderSection from "../components/habit-details/PlaceholderSection";
 
 import "./HabitDetails.css";
+import HabitActions from "../components/habit-details/HabitActions";
 
 const HabitDetails = () => {
   const { id } = useParams();
@@ -76,6 +76,7 @@ const HabitDetails = () => {
 
   return (
     <main className="habit-details">
+      <div className="habit-details__card"></div>
       <Link to="/dashboard" className="habit-details__back">
         ← Back to dashboard
       </Link>
@@ -86,12 +87,18 @@ const HabitDetails = () => {
         onDelete={handleDeleteHabit}
       />
 
-      <CompletionHistory completedDates={habit.completedDates} />
-
-      <PlaceholderSection
-        title="Recent activity"
-        description="Recent habit activity will be shown here."
+      <HabitActions
+        habit={habit}
+        onUpdate={(updates) =>
+          updateDoc(
+            doc(db, "users", auth.currentUser!.uid, "habits", habit.id),
+            updates
+          )
+        }
+        onDelete={handleDeleteHabit}
       />
+
+      <CompletionHistory completedDates={habit.completedDates} />
     </main>
   );
 };

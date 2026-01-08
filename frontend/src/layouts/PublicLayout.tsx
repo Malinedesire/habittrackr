@@ -6,7 +6,9 @@ const PublicLayout = () => {
   return (
     <>
       <PublicNavbar />
-      <Outlet />
+      <div className="pageBg">
+        <Outlet />
+      </div>
       <PublicFooter />
     </>
   );

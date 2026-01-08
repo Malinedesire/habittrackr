@@ -1,15 +1,19 @@
 .dailyChallenge {
-  border: 1px solid #e5e7eb;
+  border: 1.5px solid rgba(109, 90, 255, 0.15);
   border-radius: 8px;
   padding: 1rem;
-  background-color: #fff;
+  background: linear-gradient(
+    135deg,
+    rgba(124, 108, 255, 0.06),
+    rgba(168, 85, 247, 0.06)
+  );
 }
 
 .dailyChallenge__text {
   font-size: 0.85rem;
   line-height: 1.4;
   margin-bottom: 0.75rem;
-  color:#6b7280;
+  color: #6b7280;
 }
 
 .dailyChallenge__meta {

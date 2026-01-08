@@ -1,7 +1,4 @@
 import ProfileHeader from "../components/profile/ProfileHeader";
-import PreferencesSection from "../components/profile/PreferencesSection";
-import DataPrivacySection from "../components/profile/DataPrivacySection";
-import SupportSection from "../components/profile/SupportSection";
 import AccountActions from "../components/profile/AccountActions";
 import { useEffect, useState } from "react";
 import { collection, getDocs } from "firebase/firestore";
@@ -57,12 +54,11 @@ const Profile = () => {
   }
 
   return (
-    <main>
-      <ProfileHeader habitCount={habitCount} bestStreak={bestStreak} />
-      <PreferencesSection />
-      <DataPrivacySection />
-      <SupportSection />
-      <AccountActions />
+    <main className="profile">
+      <div className="profileContainer">
+        <ProfileHeader habitCount={habitCount} bestStreak={bestStreak} />
+        <AccountActions />
+      </div>
     </main>
   );
 };
