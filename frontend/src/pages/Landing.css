@@ -25,35 +25,206 @@
   gap: 1rem;
 }
 
-/* ─────────────────────────
-   Hero section
-   ───────────────────────── */
+.primaryCta {
+  padding: 0.75rem 1.25rem;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+
+  font-size: 0.9rem;
+  font-weight: 500;
+
+  background: linear-gradient(135deg, #7c6cff, #a855f7);
+  color: #fff;
+
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.primaryCta:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px rgba(124, 108, 255, 0.35);
+}
+
+/* Hero section  */
 
 .hero {
-  flex: 1;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: linear-gradient(120deg, #c7d2fe, #d8b4fe, #f5d0fe);
+
+  background-size: 400% 400%;
+  animation: gradientMove 20s ease infinite;
+}
+
+@keyframes gradientMove {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.heroContent {
+  max-width: 520px;
+  padding: 2rem;
+  text-align: center;
+}
+
+.heroContent h1 {
+  font-size: 2.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.heroText {
+  font-size: 1rem;
+  opacity: 0.85;
+  margin-bottom: 2rem;
+}
+
+/* Actions */
+.heroActions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.heroActions button {
+  padding: 0.75rem 1.25rem;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+/* Primary */
+.heroActions a:first-child button {
+  background: linear-gradient(135deg, #7c6cff, #a855f7);
+  color: white;
+}
+
+/* Secondary */
+.heroActions a:last-child button {
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.howItWorks {
+  padding: 5rem 2rem;
+  background: #fff;
+  text-align: center;
+}
+
+.howItWorksHeader h2 {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.howItWorksHeader p {
+  font-size: 0.9rem;
+  color: #6b7280;
+}
+
+/* Steps */
+.steps {
+  margin-top: 3rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3rem;
+}
+
+.step {
+  max-width: 280px;
+  margin: 0 auto;
+}
+
+.stepNumber {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  background: #000;
+  color: #fff;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
-  padding: 2rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0 auto 1rem;
+}
+
+.step h3 {
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.step p {
+  font-size: 0.85rem;
+  color: #6b7280;
+  line-height: 1.5;
+}
+
+@media (max-width: 768px) {
+  .steps {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+}
+
+.cta {
+  padding: 6rem 2rem;
+  background: linear-gradient(135deg, #7c6cff, #a855f7);
+  color: #fff;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
 }
 
-.heroContent {
-  max-width: 600px;
+.cta h2 {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
 }
 
-.heroText {
-  margin-top: 1rem;
+.cta p {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.85);
 }
 
-/* Actions */
+.ctaNote {
+  margin-top: 0.75rem;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.7);
+}
 
-.heroActions {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
+/* Button */
+.ctaButton {
+  padding: 0.75rem 1.5rem;
+  border-radius: 14px;
+  border: none;
+  cursor: pointer;
 
-  margin-top: 2rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+
+  background: #fff;
+  color: #4c1d95;
+
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.ctaButton:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
 }
