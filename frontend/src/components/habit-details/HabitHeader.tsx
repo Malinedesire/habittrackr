@@ -8,69 +8,38 @@ type Props = {
   onDelete: () => void;
 };
 
-const HabitHeader = ({ habit, onEdit, onDelete }: Props) => {
+const HabitHeader = ({ habit }: Props) => {
   const totalCompleted = habit.completedDates?.length ?? 0;
 
   const category = CATEGORIES.find((c) => c.id === habit.category);
 
   return (
     <section className="habitHeader">
-      {/* Header top */}
-      <div className="habitHeaderTop">
-        <div className="habitHeaderText">
-          <h1 className="habitTitle">{habit.title}</h1>
+      <div className="habitHeaderCard">
+        <div className="habitTopRow">
+          <div className="habitInfo">
+            <strong className="habitTitle">{habit.title}</strong>
 
-          {habit.description && (
-            <p className="habitDescription">{habit.description}</p>
-          )}
-
-          <div className="habitBadges">
-            <span className="badge">{habit.frequencyType}</span>
-
-            {category && (
-              <span className={`categoryChip categoryChip--${category.color}`}>
-                {category.label}
-              </span>
+            {habit.description && (
+              <div className="subText">{habit.description}</div>
             )}
+
+            <div className="habitBadges">
+              <span className="habitBadge">{habit.frequencyType}</span>
+
+              {category && (
+                <span className={`habitBadge habitBadge--${category.color}`}>
+                  {category.label}
+                </span>
+              )}
+            </div>
           </div>
         </div>
 
-        <div className="habitActions">
-          {onEdit && (
-            <button
-              onClick={onEdit}
-              aria-label="Edit habit"
-              className="iconButton edit"
-            >
-              ✏️
-            </button>
-          )}
-
-          <button
-            onClick={onDelete}
-            aria-label="Delete habit"
-            className="iconButton delete"
-          >
-            🗑️
-          </button>
-        </div>
-      </div>
-
-      {/* Stats */}
-      <div className="habitStats">
-        <div className="stat">
-          <strong>{totalCompleted}</strong>
-          <span>Total days</span>
-        </div>
-
-        <div className="stat">
-          <strong>{totalCompleted}</strong>
-          <span>Current streak</span>
-        </div>
-
-        <div className="stat">
-          <strong>{totalCompleted}</strong>
-          <span>Best streak</span>
+        <div className="habitStats">
+          <Stat label="total days" value={totalCompleted} />
+          <Stat label="current streak" value={totalCompleted} />
+          <Stat label="best streak" value={totalCompleted} />
         </div>
       </div>
     </section>
@@ -78,3 +47,10 @@ const HabitHeader = ({ habit, onEdit, onDelete }: Props) => {
 };
 
 export default HabitHeader;
+
+const Stat = ({ label, value }: { label: string; value: string | number }) => (
+  <div className="stat">
+    <strong>{value}</strong>
+    <span className="statLabel">{label}</span>
+  </div>
+);
