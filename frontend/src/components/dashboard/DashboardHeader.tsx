@@ -19,7 +19,7 @@ const DashboardHeader = () => {
       <div className="dashboardHeaderTop">
         <div>
           <h1 className="dashboardTitle">
-            {user?.name ? `Hello, ${user.name} 💙` : "Hello 👋"}
+            {user?.name ? `Hello, ${user.name} 💜` : "Hello 👋"}
           </h1>
           <p className="dashboardDate">{today}</p>
         </div>

@@ -107,7 +107,7 @@ const Dashboard = () => {
 
       <section className="mainGrid">
         {/* LEFT: habits */}
-        <section>
+        <section className="habitSection">
           <h2>Active habits</h2>
 
           {loading && <Loading message="Loading habits..." />}

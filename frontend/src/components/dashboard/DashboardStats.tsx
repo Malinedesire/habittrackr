@@ -1,3 +1,5 @@
+import "./DashboardStats.css";
+
 type Props = {
   habitCount: number;
   completedToday: number;
@@ -26,8 +28,8 @@ const DashboardStats = ({
 
 const Stat = ({ label, value }: { label: string; value: string | number }) => (
   <div className="statsCard">
-    <span className="statLabel">{label}</span>
-    <strong>{value}</strong>
+    <strong className="dashboardStatsValue">{value}</strong>
+    <span className="dashBoardStatLabel">{label}</span>
   </div>
 );
 
